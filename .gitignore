@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+.DS_Store
+.idea/
+.github
+# .env
+venv/
+venv36/
+
+debug.log
+info.log
+/static/
+/staticfiles/
+notifications.sh
+reports.sh
+.coverage
+.vscode
+media/*
+
+dump.rdb
+
+celerybeat-schedule*
+/cron.log
+supervisord.conf
+/db.sqlite3
