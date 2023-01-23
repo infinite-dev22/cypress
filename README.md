@@ -41,7 +41,7 @@ The system runs initially at http://localhost:8000
 
 Contributions are always welcome!
 
-See [`contributing.md`](https://github.com/CyconeraInc/cypress/edit/main/contributing.md) for ways to get started.
+See [`contributing.md`](https://github.com/CyconeraInc/cypress/blob/main/CONTRIBUTING.md) for ways to get started.
 
 Please adhere to this
 project's [`code of conduct`](https://github.com/CyconeraInc/cypress/blob/main/CODE_OF_CONDUCT.md).
