@@ -5,7 +5,6 @@ class CustomUserManager(BaseUserManager):
     """ User manager """
 
     def _create_user(self, username, password=None, **extra_fields):
-        """Creates and returns a new user using an email address"""
         if not username:
             raise ValueError('Users must have a Username')
 
@@ -16,19 +15,16 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_user(self, username, password=None, **extra_fields):
-        """Creates and returns a new user using an email address"""
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         return self._create_user(username, password, **extra_fields)
 
     def create_staffuser(self, username, password=None, **extra_fields):
-        """Creates and returns a new staffuser using an email address"""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", False)
         return self._create_user(username, password, **extra_fields)
 
     def create_superuser(self, username, password=None, **extra_fields):
-        """Creates and returns a new superuser using an email address"""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         return self._create_user(username, password, **extra_fields)

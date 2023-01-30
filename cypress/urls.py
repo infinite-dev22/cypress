@@ -14,13 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.urls import path, include
 
 from cypress import settings
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
+                  # path('admin/', admin.site.urls),
                   path('', include('dashboard.urls')),
+                  path("admin/", include("accounts.urls.admin_urls")),
+                  path("access/", include("accounts.urls.authentication_urls")),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

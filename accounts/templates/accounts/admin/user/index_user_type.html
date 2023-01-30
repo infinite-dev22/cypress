@@ -1,0 +1,46 @@
+{% extends "accounts/admin/admin_base.html" %}
+{% load static %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">User Types</h4>
+                <a class="btn btn-primary m-2" href="{% url 'user_type_add' %}" type="button"><span
+                        class="fa fa-plus"></span>Add User Types</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    {% if user_types is not None %}
+                    <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Title</th>
+                        <th>Active</th>
+                        <th>Description</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user_type in user_types %}
+                    <tr>
+                        <td><a href="{% url 'user_type_edit' user_type.id %}"><span
+                                class="mdi mdi-pencil-box-outline"></span></a></td>
+                        <td>{{ user_type.title }}</td>
+                        <td>{{ user_type.is_active }}</td>
+                        <td>{{ user_type.description }}</td>
+                        <td><a href="#"><span class="mdi mdi-delete-forever"></span></a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <div class="d-flex justify-content-center">
+                        <p class="text-info">Nothing to show here</p>
+                    </div>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

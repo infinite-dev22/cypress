@@ -1,0 +1,14 @@
+{% extends "accounts/authentication/user/auth_base.html" %}
+{% load static %}
+{% block content %}
+<form action="" id="myform" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>School/Institution Name</label>
+        <input class="form-control p_input" name="title" type="text">
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary btn-block enter-btn" type="submit">Next</button>
+    </div>
+</form>
+{% endblock content %}
