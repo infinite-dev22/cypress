@@ -15,6 +15,9 @@
     <link href="{% static 'vendors/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/owl-carousel-2/owl.carousel.min.css' %}" rel="stylesheet">
     <link href="{% static 'vendors/owl-carousel-2/owl.theme.default.min.css' %}" rel="stylesheet">
+    <!-- admin.css -->
+    <link href="{% static 'css/admin.css' %}" rel="stylesheet">
+    <!-- endinject -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
@@ -26,11 +29,11 @@
 <body>
 <div class="container-scroller">
     <!-- partial:partials/sidebar.html -->
-    {% include "dashboard/partials/sidebar.html" %}
+    {% include "accounts/admin/partials/sidebar.html" %}
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/navbar.html -->
-        {% include "dashboard/partials/navbar.html" %}
+        {% include "accounts/admin/partials/navbar.html" %}
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
@@ -39,13 +42,7 @@
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/footer.html -->
-            <footer class="footer">
-                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Cypress Academy SMS 2021</span>
-                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><a href="#"
-                                                                                                target="_blank">Cypress SMS</a> from Cyconera Inc</span>
-                </div>
-            </footer>
+            {% include "accounts/admin/partials/footer.html" %}
             <!-- partial -->
         </div>
         <!-- main-panel ends -->
