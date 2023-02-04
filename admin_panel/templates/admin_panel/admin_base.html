@@ -29,20 +29,34 @@
 <body>
 <div class="container-scroller">
     <!-- partial:partials/sidebar.html -->
-    {% include "accounts/admin/partials/sidebar.html" %}
+    {% include "admin_panel/partials/sidebar.html" %}
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:partials/navbar.html -->
-        {% include "accounts/admin/partials/navbar.html" %}
+        {% include "admin_panel/partials/navbar.html" %}
         <!-- partial -->
         <div class="main-panel">
+            <!--        {% if messages %}-->
+            <!--        <ul class="messages">-->
+            <!--            {% for message in messages %}-->
+            <!--            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+            <!--            {% endfor %}-->
+            <!--        </ul>-->
+            <!--        {% endif %}-->
+            {% if messages %}
+            <input class="hidden" id="one" name="ossm" type="checkbox">
+            <label %} %} class="alert-message {{ message.tags }}" endif for="one" if message.tags {% {%>
+                <strong><i class="fa fa-heart"></i> Attention</strong> {{ message }}
+                <button><span class="close">×</span></button>
+            </label>
+            {% endif %}
             <div class="content-wrapper">
                 <!-- Content Wrapper starts here -->
                 {% block content %}{% endblock content %}
             </div>
             <!-- content-wrapper ends -->
             <!-- partial:partials/footer.html -->
-            {% include "accounts/admin/partials/footer.html" %}
+            {% include "admin_panel/partials/footer.html" %}
             <!-- partial -->
         </div>
         <!-- main-panel ends -->

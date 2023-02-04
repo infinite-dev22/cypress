@@ -1,4 +1,4 @@
-{% extends "accounts/admin/admin_base.html" %}
+{% extends "admin_panel/admin_base.html" %}
 {% load static %}
 {% block content %}
 {# Edits both Organisation and OrganisationProfile #}
@@ -61,7 +61,7 @@
                     </div>
                     <!--                    <div class="form-group">-->
                     <!--                        <label for="roleSelect">Roles</label>-->
-                    <!--                        <select class="form-control form-control-lg" id="roleSelect" multiple name="role">-->
+                    <!--                        <select class="form-roles form-roles-lg" id="roleSelect" multiple name="role">-->
                     <!--                            {% for role in  roles %}-->
                     <!--                                <option value="{{ role.id }}">{{ role }}</option>-->
                     <!--                            {% endfor %}-->
@@ -69,7 +69,7 @@
                     <!--                    </div>-->
                     <!--                    <div class="form-group">-->
                     <!--                        <label for="inputDescription">Description</label>-->
-                    <!--                        <textarea class="form-control" id="inputDescription" placeholder="Description..." name="description">{{ user_type.description }}</textarea>-->
+                    <!--                        <textarea class="form-roles" id="inputDescription" placeholder="Description..." name="description">{{ user_type.description }}</textarea>-->
                     <!--                    </div>-->
                     <!--                    {% if user_type.id %}-->
                     <!--                        <div class="form-group">-->

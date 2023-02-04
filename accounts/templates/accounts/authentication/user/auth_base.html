@@ -16,6 +16,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/notification.css' %}" rel="stylesheet">
     <!-- End layout styles -->
     <link href="{% static 'images/favicon.png' %}" rel="shortcut icon"/>
 </head>
@@ -23,6 +24,7 @@
 <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="row w-100 m-0">
+            {% block notification %}{% endblock notification %}
             <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
                 <div class="card col-lg-4 mx-auto">
                     <div class="card-body px-5 py-5">

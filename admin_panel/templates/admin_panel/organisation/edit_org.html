@@ -1,4 +1,4 @@
-{% extends "accounts/admin/admin_base.html" %}
+{% extends "admin_panel/admin_base.html" %}
 {% load static %}
 {% block content %}
 {# Edits both Organisation and OrganisationProfile #}
@@ -6,7 +6,11 @@
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
+                {% if org.id is null %}
                 <h4 class="card-title">Add Organisation</h4>
+                {% else %}
+                <h4 class="card-title">Edit Organisation</h4>
+                {% endif %}
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
                     <input name="id" type="hidden" value="{{ org.id }}">
@@ -14,14 +18,6 @@
                         <label for="inputTitle">Title</label>
                         <input class="form-control" id="inputTitle" name="title" placeholder="Title..." type="text"
                                value="{{ org.title }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="permissionSelect">Permissions</label>
-                        <select class="form-control form-control-lg" id="permissionSelect" multiple name="permission">
-                            {% for permission in permissions %}
-                            <option value="{{ permission.id }}">{{ permission }}</option>
-                            {% endfor %}
-                        </select>
                     </div>
                     <div class="form-group">
                         <label for="inputDescription">Description</label>

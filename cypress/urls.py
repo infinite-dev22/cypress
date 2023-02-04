@@ -21,8 +21,8 @@ from cypress import settings
 urlpatterns = [
                   # path('admin/', admin.site.urls),
                   path('', include('dashboard.urls')),
-                  path("admin/", include("accounts.urls.admin_urls")),
-                  path("access/", include("accounts.urls.authentication_urls")),
+                  path("admin/", include("admin_panel.urls")),
+                  path("access/", include("accounts.urls")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

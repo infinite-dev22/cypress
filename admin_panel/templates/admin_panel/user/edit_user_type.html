@@ -1,4 +1,4 @@
-{% extends "accounts/admin/admin_base.html" %}
+{% extends "admin_panel/admin_base.html" %}
 {% load static %}
 {% block content %}
 {# Edits both Organisation and OrganisationProfile #}
@@ -6,24 +6,36 @@
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Add Organisation</h4>
+                {% if user_type.id is null %}
+                <h4 class="card-title">Add User</h4>
+                {% else %}
+                <h4 class="card-title">Edit User</h4>
+                {% endif %}
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
-                    <input name="id" type="hidden" value="{{ org.id }}">
+                    <input name="id" type="hidden" value="{{ user_type.id }}">
                     <div class="form-group">
                         <label for="inputTitle">Title</label>
                         <input class="form-control" id="inputTitle" name="title" placeholder="Title..." type="text"
-                               value="{{ org.title }}">
+                               value="{{ user_type.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="roleSelect">Roles</label>
+                        <select class="form-control form-control-lg" id="roleSelect" multiple name="role">
+                            {% for role in roles %}
+                            <option value="{{ role.id }}">{{ role }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="inputDescription">Description</label>
                         <textarea class="form-control" id="inputDescription" name="description"
-                                  placeholder="Description...">{{ org.description }}</textarea>
+                                  placeholder="Description...">{{ user_type.description }}</textarea>
                     </div>
-                    {% if org.id %}
+                    {% if user_type.id %}
                     <div class="form-group">
                         <label class="switch">
-                            <input name="is_active" type="checkbox" value="{{ org.is_active }}">
+                            <input name="is_active" type="checkbox" value="{{ user_type.is_active }}">
                             <span class="slider round"></span>
                         </label>
                         <label>&nbsp&nbsp Active</label>
