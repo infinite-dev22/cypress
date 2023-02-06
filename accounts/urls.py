@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from accounts.views import authentication_views
+from accounts import views
 from admin_panel.views import admin_user_types
 
 USER_URLS = [
@@ -25,13 +25,13 @@ USER_URLS = [
     path('user_type/add/<int:pk>', admin_user_types.edit_user_type, name="user_type_edit"),
 
     # User Urls
-    path('register/', authentication_views.register_organisation, name="register"),
-    path('register/user/<org>', authentication_views.create_head_teacher, name="register_super_admin"),
-    path('login/', authentication_views.login, name="login_user"),
-    path('', authentication_views.logout, name="user_logout"),
-    path('user/', authentication_views.index_user, name="users"),
-    path('user/add/', authentication_views.create_user, name="user_add"),
-    path('user/remove/<pk>', authentication_views.delete_user, name="delete_users"),
+    path('register/', views.register_organisation, name="register"),
+    path('register/user/<org>', views.create_head_teacher, name="register_super_admin"),
+    path('login/', views.login, name="login_user"),
+    path('', views.logout, name="user_logout"),
+    path('user/', views.index_user, name="users"),
+    path('user/add/', views.create_user, name="user_add"),
+    path('user/remove/<pk>', views.delete_user, name="delete_users"),
 ]
 
 urlpatterns = USER_URLS

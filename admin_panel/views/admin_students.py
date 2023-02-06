@@ -37,6 +37,7 @@ def create_student(request):
             subjects = request.POST.getlist("subjects")
             parents = request.POST.getlist("parents")
             is_active = request.POST.get("is_active", False)
+            is_staff = request.POST.get("is_active", False)
             description = request.POST["description"]
             student = Student(
                 first_name=first_name,
@@ -44,6 +45,7 @@ def create_student(request):
                 last_name=last_name,
                 username=username,
                 email=email,
+                is_staff=is_staff,
                 address=address,
                 class_id=class_id,
                 is_active=is_active,
@@ -57,7 +59,7 @@ def create_student(request):
         # subjects = Subject.objects.all()
         # classes = Class.objects.all()
         user_type = UserType.objects.filter(title='Parent')
-        parents = User.objects.filter(user_type__in=user_type)
+        parents = User.objects.filter(user_type__in=user_type)  # Error here.
         context = {
             # "classes": classes,
             # "subjects": subjects

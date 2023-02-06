@@ -15,19 +15,19 @@ Including another URLconf
 """
 from django.urls import path
 
-from admin_panel.views import admin_users, organisation_views, admin_roles, admin_user_types, admin_dashboard, \
-    admin_echelon, admin_students
+from admin_panel.views import admin_users, admin_organisation, admin_roles, admin_user_types, admin_dashboard, \
+    admin_echelon, admin_students, admin_teachers
 
 DASHBOARD_URLS = [
     path('', admin_dashboard.dashboard_admin, name="admin_dashboard"),
 ]
 
 ORGANISATION_URLS = [
-    path('organisation/', organisation_views.index_organisation, name="admin_org"),
-    path('organisation/profiles', organisation_views.index_organisation_profile, name="admin_org_profiles"),
-    path('organisation/add/', organisation_views.create_organisation, name="org_add"),
-    path('organisation/add/<int:pk>', organisation_views.edit_organisation, name="org_edit"),
-    path('organisation/del/<int:pk>', organisation_views.delete_org, name="org_del"),
+    path('organisation/', admin_organisation.index_organisation, name="admin_org"),
+    path('organisation/profiles', admin_organisation.index_organisation_profile, name="admin_org_profiles"),
+    path('organisation/add/', admin_organisation.create_organisation, name="org_add"),
+    path('organisation/add/<int:pk>', admin_organisation.edit_organisation, name="org_edit"),
+    path('organisation/del/<int:pk>', admin_organisation.delete_org, name="org_del"),
 ]
 
 CONTROLS_URLS = [
@@ -71,10 +71,18 @@ STUDENTS_URLS = [
     path('student/del/<int:pk>', admin_students.delete_student, name="student_del"),
 ]
 
+TEACHERS_URLS = [
+    path('teachers/', admin_teachers.index_teachers, name="admin_teacher"),
+    path('teacher/add/', admin_teachers.create_teacher, name="teacher_add"),
+    path('teacher/add/<int:pk>', admin_teachers.edit_teacher, name="teacher_edit"),
+    path('teacher/del/<int:pk>', admin_teachers.delete_teacher, name="teacher_del"),
+]
+
 urlpatterns = DASHBOARD_URLS \
               + ORGANISATION_URLS \
               + CONTROLS_URLS \
               + USER_URLS \
               + LEVELS_URLS \
               + CLASSES_URLS \
-              + STUDENTS_URLS
+              + STUDENTS_URLS \
+              + TEACHERS_URLS
