@@ -6,8 +6,6 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h4 class="card-title">Chats</h4>
-                <!--                <a class="btn btn-primary m-2" href="{% url 'role_add' %}" type="button"><span-->
-                <!--                        class="fa fa-plus"></span> Add Conversations</a>-->
                 <div class="d-none d-lg-block">
                     <a aria-expanded="false" class="nav-link btn btn-success create-new-button"
                        data-bs-toggle="dropdown" href="#" id="createbuttonDropdown">+ Add Conversations</a>
@@ -16,7 +14,8 @@
                         <h6 class="p-3 mb-0">Contacts</h6>
                         <div class="dropdown-divider"></div>
                         {% for user in users %}
-                        <a class="dropdown-item preview-item px-1" href="#">
+                        {% if user.id != request.user.id %}
+                        <a class="dropdown-item preview-item px-1" href="{% url 'chat_details' user.id %}">
                             <div class="d-flex align-items-center">
                                 <div class="preview-thumbnail">
                                     <div class="preview-icon bg-dark rounded-circle">
@@ -29,38 +28,94 @@
                             </div>
                         </a>
                         <div class="dropdown-divider"></div>
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover">
-                    {% if chats is not None %}
-                    {% for chat in chats %}
-                    <div class="row">
-                        <div class="col-3">
-                            <p>{{ role.title }}</p>
-                            <p>{{ role.is_active }}</p>
-                            <p>{{ role.description }}</p>
+                {% if chats is not None %}
+                <div class="row">
+                    <div class="col-3">
+                        {% for chat in chats %}
+                        {% if chat.msg_sender.id != request.user.id %}
+                        <a class="dropdown-item preview-item px-1" href="{% url 'chat_details' chat.msg_sender.id %}">
+                            <div style="border: 2px solid red;">
+                                <p>{{ chat.msg_sender.username }}</p>
+                            </div>
+                        </a>
+                        {% elif chat.msg_receiver.id != request.user.id %}
+                        <a class="dropdown-item preview-item px-1" href="{% url 'chat_details' chat.msg_receiver.id %}">
+                            <div style="border: 2px solid red;">
+                                <p>{{ chat.msg_receiver.username }}</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-9">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color: #242d45;">
+                            <div class="align-self-center">
+                                <p>Your chats appear here...</p>
+                            </div>
                         </div>
-                        <div class="col-9">
-                            <p>{{ role.title }}</p>
-                            <p>{{ role.is_active }}</p>
-                            <p>{{ role.description }}</p>
+                        <form action="" class="forms-sample" method="POST">
+                            {% csrf_token %}
+                            <input name="receiver" type="hidden" value="{{ sender.id }}">
+                            <div class="row py-2 d-flex justify-content-between align-items-center">
+                                <div class="col-9">
+                                    <input class="form-control " id="inputMessage4" name="message"
+                                           placeholder="Message..."
+                                           required style="background-color: #0f1a38; width: 100%; border-radius: 25px;"
+                                           type="text">
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-secondary m-2 rounded-circle" type="submit">
+                                        <span class="mdi mdi-send align-self-center"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="align-self-center">
+                                <p>Not chats here</p>
+                            </div>
                         </div>
                     </div>
-                    {% endfor %}
-                    {% else %}
-                    <div class="row">
-                        <div class="col-3">
-                            <p>Not chats here</p>
+                    <div class="col-9">
+                        <div class="d-flex justify-content-center align-items-center"
+                             style="background-color: #242d45; flex-grow: 1;">
+                            <div class="align-self-center">
+                                <p>Start chat</p>
+                            </div>
                         </div>
-                        <div class="col-9">
-                            <p>Start chat</p>
-                        </div>
+                        <form action="" class="forms-sample" method="POST">
+                            {% csrf_token %}
+                            <input name="receiver" type="hidden" value="{{ sender.id }}">
+                            <div class="row py-2 d-flex justify-content-between align-items-center">
+                                <div class="col-9">
+                                    <input class="form-control " id="inputMessage1" name="message"
+                                           placeholder="Message..."
+                                           required style="background-color: #0f1a38; width: 100%; border-radius: 25px;"
+                                           type="text">
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-secondary m-2 rounded-circle" type="submit">
+                                        <span class="mdi mdi-send align-self-center"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    {% endif %}
-                </table>
+                </div>
+                {% endif %}
+            </div>
             </div>
         </div>
     </div>
