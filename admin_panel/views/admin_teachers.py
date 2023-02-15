@@ -39,14 +39,14 @@ def create_teacher(request):
             classes = request.POST.getlist("classes")
             is_active = request.POST.get("is_active", False)
             is_staff = request.POST.get("is_active", True)
-            user_type = UserType.objects.filter(title='Teacher')
+            user_type = UserType.objects.get(title='Teacher')
             teacher = Teacher(
                 first_name=first_name,
                 middle_name=middle_name,
                 last_name=last_name,
                 username=username,
-                telephone1=telephone1,
-                telephone2=telephone2,
+                telephone_1=telephone1,
+                telephone_2=telephone2,
                 email=email,
                 user_type=user_type,
                 address=address,
@@ -88,14 +88,14 @@ def edit_teacher(request, pk):
             teacher.middle_name = middle_name
             teacher.last_name = last_name
             teacher.username = username
-            teacher.telephone1 = telephone1
-            teacher.telephone2 = telephone2
+            teacher.telephone_1 = telephone1
+            teacher.telephone_2 = telephone2
             teacher.email = email
             teacher.address = address
-            teacher.school_class = classes
-            teacher.subject = subjects
             teacher.is_active = is_active
             teacher.save()
+            teacher.subject.set(subjects)
+            teacher.school_class.set(classes)
             return redirect("admin_teacher")
 
         teacher = Teacher.objects.get(id=pk)

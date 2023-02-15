@@ -71,6 +71,45 @@ def create_user(request):
         return redirect('login_admin_user')
 
 
+def edit_user(request, pk):
+    if request.user.is_authenticated and request.user.is_superuser:
+        if request.method != 'POST':
+            user_types = UserType.objects.all()
+            user = BaseUser.objects.get(id=pk)
+            context = {
+                "user": user,
+                "user_types": user_types
+            }
+            return render(request, 'admin_panel/user/create_user.html', context)
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if password1 == password2:
+            first_name = request.POST['first_name']
+            middle_name = request.POST['middle_name']
+            last_name = request.POST['last_name']
+            username = request.POST['username']
+            user_type_id = request.POST['user_type']
+            user_type = UserType.objects.get(id=user_type_id)  # Error here.
+            email = request.POST['email']
+            user = BaseUser.objects.get(id=pk)
+            user.username = username,
+            user.password = password1,
+            user.email = email,
+            user.first_name = first_name,
+            user.middle_name = middle_name,
+            user.user_type = user_type,
+            user.last_name = last_name
+            user.save()
+            messages.info(request, "your account details have been updated successfully")
+            return redirect('admin_user')
+        else:
+            messages.info(request, "passwords do not match...")
+            return redirect('user_add')
+    else:
+        return redirect('login_admin_user')
+
+
 def login(request):
     if request.method != 'POST':
         return render(request, 'admin_panel/auth/login.html')
@@ -87,6 +126,13 @@ def login(request):
         return redirect('admin_dashboard')
 
     messages.info(request, 'invalid credentials...')
+    return redirect('login_admin_user')
+
+
+def delete_user(request, pk):
+    if request.user.is_authenticated:
+        BaseUser.objects.get(id=pk).delete()
+        return redirect('admin_user')
     return redirect('login_admin_user')
 
 

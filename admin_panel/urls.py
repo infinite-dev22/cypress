@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from admin_panel.views import admin_users, admin_organisation, admin_roles, admin_user_types, admin_dashboard, \
-    admin_echelon, admin_students, admin_teachers
+    admin_echelon, admin_students, admin_teachers, admin_terms, admin_subjects, admin_chats
 
 DASHBOARD_URLS = [
     path('', admin_dashboard.dashboard_admin, name="admin_dashboard"),
@@ -45,7 +45,9 @@ USER_URLS = [
 
     # User Urls
     path('user/', admin_users.index_base_user, name="admin_user"),
-    path('user/add/', admin_users.create_user, name="user_add"),
+    path('user/add/', admin_users.create_user, name="admin_user_add"),
+    path('user/add/<int:pk>', admin_users.edit_user, name="admin_user_edit"),
+    path('user/del/<int:pk>', admin_users.delete_user, name="admin_user_del"),
     path('login/', admin_users.login, name="login_admin_user"),
     path('logout/', admin_users.logout, name="admin_user_logout"),
 ]
@@ -57,6 +59,13 @@ LEVELS_URLS = [
     path('level/del/<int:pk>', admin_echelon.delete_level, name="level_del"),
 ]
 
+TERMS_URLS = [
+    path('terms/', admin_terms.index_terms, name="admin_term"),
+    path('term/add/', admin_terms.create_term, name="term_add"),
+    path('term/add/<int:pk>', admin_terms.edit_term, name="term_edit"),
+    path('term/del/<int:pk>', admin_terms.delete_term, name="term_del"),
+]
+
 CLASSES_URLS = [
     path('class/', admin_echelon.index_classes, name="admin_class"),
     path('class/add/', admin_echelon.create_class, name="class_add"),
@@ -64,11 +73,11 @@ CLASSES_URLS = [
     path('class/del/<int:pk>', admin_echelon.delete_class, name="class_del"),
 ]
 
-STUDENTS_URLS = [
-    path('students/', admin_students.index_students, name="admin_student"),
-    path('student/add/', admin_students.create_student, name="student_add"),
-    path('student/add/<int:pk>', admin_students.edit_student, name="student_edit"),
-    path('student/del/<int:pk>', admin_students.delete_student, name="student_del"),
+SUBJECTS_URLS = [
+    path('subjects/', admin_subjects.index_subjects, name="admin_subject"),
+    path('subject/add/', admin_subjects.create_subject, name="subject_add"),
+    path('subject/add/<int:pk>', admin_subjects.edit_subject, name="subject_edit"),
+    path('subject/del/<int:pk>', admin_subjects.delete_subject, name="subject_del"),
 ]
 
 TEACHERS_URLS = [
@@ -78,11 +87,28 @@ TEACHERS_URLS = [
     path('teacher/del/<int:pk>', admin_teachers.delete_teacher, name="teacher_del"),
 ]
 
+STUDENTS_URLS = [
+    path('students/', admin_students.index_students, name="admin_student"),
+    path('student/add/', admin_students.create_student, name="student_add"),
+    path('student/add/<int:pk>', admin_students.edit_student, name="student_edit"),
+    path('student/del/<int:pk>', admin_students.delete_student, name="student_del"),
+]
+
+CHATS_URLS = [
+    path('chat/', admin_chats.index_chats, name="admin_chat"),
+    # path('level/add/', admin_echelon.create_level, name="level_add"),
+    # path('level/add/<int:pk>', admin_echelon.edit_level, name="level_edit"),
+    # path('level/del/<int:pk>', admin_echelon.delete_level, name="level_del"),
+]
+
 urlpatterns = DASHBOARD_URLS \
               + ORGANISATION_URLS \
               + CONTROLS_URLS \
               + USER_URLS \
               + LEVELS_URLS \
+              + TERMS_URLS \
               + CLASSES_URLS \
+              + SUBJECTS_URLS \
+              + TEACHERS_URLS \
               + STUDENTS_URLS \
-              + TEACHERS_URLS
+              + CHATS_URLS

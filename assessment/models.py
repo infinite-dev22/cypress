@@ -9,7 +9,7 @@ from subject.models import Subject
 
 # Create your models here.
 class ExamType(models.Model):
-    organisation = models.ManyToManyField(Organisation, blank=True)
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
     slug = models.SlugField(max_length=150)
     is_active = models.BooleanField(default=True)
@@ -26,8 +26,9 @@ class ExamType(models.Model):
 
 
 class ExamMaster(models.Model):
-    exam_type = models.ManyToManyField(ExamType, blank=True)
+    exam_type = models.ForeignKey(ExamType, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
+    classes = models.ManyToManyField(Class)
     term = models.IntegerField(null=False, blank=False)
     year = models.IntegerField(null=False, blank=False)
     is_active = models.BooleanField(default=True)

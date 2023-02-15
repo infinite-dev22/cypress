@@ -16,13 +16,13 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.urls import path, include
 
-from cypress import settings
+from . import settings
 
 urlpatterns = [
                   # path('admin/', admin.site.urls),
                   path('', include('dashboard.urls')),
                   path("admin/", include("admin_panel.urls")),
                   path("access/", include("accounts.urls")),
-
+                  path("subjects/", include("subject.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

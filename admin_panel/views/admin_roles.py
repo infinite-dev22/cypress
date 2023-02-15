@@ -38,8 +38,6 @@ def create_role(request):
                 description=description
             )
             role.save()
-            for p in permission:
-                print(p)
             role.permission.set(permission)
             return redirect("admin_role")
 

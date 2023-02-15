@@ -1,0 +1,17 @@
+asgiref==3.6.0
+astroid==2.13.3
+backports.zoneinfo==0.2.1
+dill==0.3.6
+Django==4.1.5
+isort==5.11.4
+lazy-object-proxy==1.9.0
+mccabe==0.7.0
+Pillow==9.4.0
+platformdirs==2.6.2
+pylint==2.15.10
+sorl-thumbnail==12.9.0
+sqlparse==0.4.3
+tomli==2.0.1
+tomlkit==0.11.6
+typing-extensions==4.4.0
+wrapt==1.14.1
