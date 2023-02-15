@@ -96,7 +96,7 @@ STUDENTS_URLS = [
 
 CHATS_URLS = [
     path('chat/', admin_chats.index_chats, name="admin_chat"),
-    # path('level/add/', admin_echelon.create_level, name="level_add"),
+    path('chat/details/<int:pk>', admin_chats.chat_details, name="chat_details"),
     # path('level/add/<int:pk>', admin_echelon.edit_level, name="level_edit"),
     # path('level/del/<int:pk>', admin_echelon.delete_level, name="level_del"),
 ]
