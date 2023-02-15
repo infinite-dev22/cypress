@@ -1,6 +1,13 @@
 {% extends "accounts/authentication/user/auth_base.html" %}
 {% load static %}
 {% block content %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li %} %} class="{{ message.tags }}" endif if message.tags {% {%>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <h3 class="card-title text-left mb-3">Login</h3>
 <form action="" id="myform" method="POST">
     {% csrf_token %}
