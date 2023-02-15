@@ -43,6 +43,7 @@ FIRST_LOADED_APPS = [
 
 CUSTOM_APPS = [
     'accounts',
+    'admin_panel',
     'assessment',
     'chat',
     'dashboard',

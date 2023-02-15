@@ -1,0 +1,53 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+{# Edits both Organisation and OrganisationProfile #}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {% if org.id is null %}
+                <h4 class="card-title">Add Organisation</h4>
+                {% else %}
+                <h4 class="card-title">Edit Organisation</h4>
+                {% endif %}
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ org.id }}">
+                    <div class="form-group">
+                        <label for="inputTitle">Title</label>
+                        <input class="form-control" id="inputTitle" name="title" placeholder="Title..." type="text"
+                               value="{{ org.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <textarea class="form-control" id="inputDescription" name="description"
+                                  placeholder="Description...">{{ org.description }}</textarea>
+                    </div>
+                    {% if org.id %}
+                    <div class="form-group">
+                        <label class="switch">
+                            <input name="is_active" type="checkbox" value="{{ org.is_active }}">
+                            <span class="slider round"></span>
+                        </label>
+                        <label>&nbsp&nbsp Active</label>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark">Cancel</button>
+                        </div>
+                        <div>
+                            {% if org.id %}
+                            <button class="btn btn-primary me-2" type="submit">Update</button>
+                            {% else %}
+                            <button class="btn btn-primary me-2" type="submit">Submit</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

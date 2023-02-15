@@ -54,3 +54,16 @@ class Room(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+
+
+class Term(models.Model):
+    name = models.CharField(max_length=50)
+    starts_on = models.DateField()
+    ends_on = models.DateField()
+    is_active = models.BooleanField(default=True)
+
+    # created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # created_on = models.DateTimeField(auto_now=datetime.now())
+
+    def __str__(self):
+        return self.name

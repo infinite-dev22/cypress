@@ -1,0 +1,74 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+{# Edits Subject #}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {% if subject.id is null %}
+                <h4 class="card-title">Add Subject</h4>
+                {% else %}
+                <h4 class="card-title">Edit Subject</h4>
+                {% endif %}
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ subject.id }}">
+                    <div class="form-group">
+                        <label for="inputTitle">Name</label>
+                        <input class="form-control" id="inputName" name="name" placeholder="Subject name..." type="text"
+                               value="{{ subject.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputShortName">Abbreviated Name</label>
+                        <input class="form-control" id="inputShortName" name="abbreviated_name"
+                               placeholder="Abbreviated name..." type="text"
+                               value="{{ subject.abbreviated_name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="levelSelect">Classes</label>
+                        <select aria-multiselectable="true" class="form-control form-control-lg" id="levelSelect"
+                                multiple name="classes">
+                            <option>select</option>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                            <input class="form-check-input" name="is_optional" type="checkbox"
+                                   value="{{ subject.is_optional }}">Optional subject</label>
+                    </div>
+                    <div class="form-check form-check-flat form-check-primary">
+                        <label class="form-check-label">
+                            <input checked class="form-check-input" name="is_active"
+                                   type="checkbox" value="{{ subject.is_active }}">Is active</label>
+                    </div>
+                    {% if class.id %}
+                    <div class="form-group">
+                        <label class="switch">
+                            <input name="is_active" type="checkbox" value="{{ subject.is_active }}">
+                            <span class="slider round"></span>
+                        </label>
+                        <label>&nbsp&nbsp Active</label>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark">Cancel</button>
+                        </div>
+                        <div>
+                            {% if subject.id %}
+                            <button class="btn btn-primary me-2" type="submit">Update</button>
+                            {% else %}
+                            <button class="btn btn-primary me-2" type="submit">Submit</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

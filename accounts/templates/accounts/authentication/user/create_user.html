@@ -3,7 +3,7 @@
 {% block content %}
 {# Edits both Organisation and OrganisationProfile #}
 <div class="row d-flex justify-content-center">
-    <div class="col-md-8 grid-margin stretch-card">
+    <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Add User</h4>
@@ -13,7 +13,8 @@
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="inputFirstName">First Name</label>
-                            <input class="form-control" id="inputFirstName" name="first_name" placeholder="First name..."
+                            <input class="form-control" id="inputFirstName" name="first_name"
+                                   placeholder="First name..."
                                    type="text" value="{{ user_type.title }}">
                         </div>
                         <div class="form-group col-4">
@@ -61,7 +62,7 @@
                     </div>
                     <!--                    <div class="form-group">-->
                     <!--                        <label for="roleSelect">Roles</label>-->
-                    <!--                        <select class="form-control form-control-lg" id="roleSelect" multiple name="role">-->
+                    <!--                        <select class="form-roles form-roles-lg" id="roleSelect" multiple name="role">-->
                     <!--                            {% for role in  roles %}-->
                     <!--                                <option value="{{ role.id }}">{{ role }}</option>-->
                     <!--                            {% endfor %}-->
@@ -69,7 +70,7 @@
                     <!--                    </div>-->
                     <!--                    <div class="form-group">-->
                     <!--                        <label for="inputDescription">Description</label>-->
-                    <!--                        <textarea class="form-control" id="inputDescription" placeholder="Description..." name="description">{{ user_type.description }}</textarea>-->
+                    <!--                        <textarea class="form-roles" id="inputDescription" placeholder="Description..." name="description">{{ user_type.description }}</textarea>-->
                     <!--                    </div>-->
                     <!--                    {% if user_type.id %}-->
                     <!--                        <div class="form-group">-->
