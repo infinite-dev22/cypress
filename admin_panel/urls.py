@@ -16,7 +16,7 @@ Including another URLconf
 from django.urls import path
 
 from admin_panel.views import admin_users, admin_organisation, admin_roles, admin_user_types, admin_dashboard, \
-    admin_echelon, admin_students, admin_teachers, admin_terms, admin_subjects, admin_chats
+    admin_echelon, admin_students, admin_teachers, admin_terms, admin_subjects, admin_chats, admin_timetables
 
 DASHBOARD_URLS = [
     path('', admin_dashboard.dashboard_admin, name="admin_dashboard"),
@@ -97,8 +97,29 @@ STUDENTS_URLS = [
 CHATS_URLS = [
     path('chat/', admin_chats.index_chats, name="admin_chat"),
     path('chat/details/<int:pk>', admin_chats.chat_details, name="chat_details"),
-    # path('level/add/<int:pk>', admin_echelon.edit_level, name="level_edit"),
-    # path('level/del/<int:pk>', admin_echelon.delete_level, name="level_del"),
+]
+
+TIMETABLES_URLS = [
+    # Timetable Types
+    path('timetables/types/', admin_timetables.index_timetable_type, name="admin_timetables_types"),
+    path('timetables/types/create/', admin_timetables.create_timetable_type, name="timetables_type_add"),
+    path('timetables/types/<int:pk>', admin_timetables.edit_timetable_type, name="timetable_type_edit"),
+    path('timetables/types/del/<int:pk>', admin_timetables.delete_timetable_type, name="timetable_type_del"),
+    # Timetable Records
+    path('timetables/records/', admin_timetables.index_timetable_record, name="admin_timetables_records"),
+    path('timetables/records/create/', admin_timetables.create_timetable_record, name="timetables_record_add"),
+    path('timetables/records/<int:pk>', admin_timetables.edit_timetable_record, name="timetable_record_edit"),
+    path('timetables/records/del/<int:pk>', admin_timetables.delete_timetable_record, name="timetable_record_del"),
+    # Time Slots
+    path('timetables/slots/', admin_timetables.index_time_slot, name="admin_time_slots"),
+    path('timetables/slots/create/', admin_timetables.create_time_slot, name="time_slot_add"),
+    path('timetables/slots/<int:pk>', admin_timetables.edit_time_slot, name="time_slot_edit"),
+    path('timetables/slots/del/<int:pk>', admin_timetables.delete_time_slot, name="time_slot_del"),
+    # Timetables
+    path('timetables/', admin_timetables.index_timetable, name="admin_timetables"),
+    path('timetables/create/', admin_timetables.create_timetable, name="timetable_add"),
+    path('timetables/<int:pk>', admin_timetables.edit_timetable, name="timetable_edit"),
+    path('timetables/del/<int:pk>', admin_timetables.delete_timetable, name="timetable_del"),
 ]
 
 urlpatterns = DASHBOARD_URLS \
@@ -111,4 +132,5 @@ urlpatterns = DASHBOARD_URLS \
               + SUBJECTS_URLS \
               + TEACHERS_URLS \
               + STUDENTS_URLS \
-              + CHATS_URLS
+              + CHATS_URLS \
+              + TIMETABLES_URLS
