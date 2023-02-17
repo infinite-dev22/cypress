@@ -79,7 +79,7 @@
                     <div class="dropdown-divider"></div>
                     {% if new_chats > 0 %}
                     {% for chat in chats %}
-                    <a class="dropdown-item preview-item">
+                    <a class="dropdown-item preview-item" href="{% url 'chat_details' chat.msg_sender.id %}">
                         <div class="preview-thumbnail">
                             <img alt="image" class="rounded-circle profile-pic"
                                  src="{% static 'images/faces/face4.jpg' %}">
