@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Cypress Academy SMS</title>
+    <!-- plugins:css -->
+    <link href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/css/vendor.bundle.base.css' %}" rel="stylesheet">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link href="{% static 'vendors/jvectormap/jquery-jvectormap.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/flag-icon-css/css/flag-icon.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/owl-carousel-2/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendors/owl-carousel-2/owl.theme.default.min.css' %}" rel="stylesheet">
+    <!-- admin.css -->
+    <link href="{% static 'css/admin.css' %}" rel="stylesheet">
+    <!-- multi-select css -->
+    <link href="https://github.com/lou/multi-select/blob/master/css/multi-select.dist.css" rel="stylesheet">
+    <!-- endinject -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <!-- End layout styles -->
+    <link href="{% static 'images/favicon.png' %}" rel="shortcut icon"/>
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/sidebar.html -->
+    {% include "admin_panel/partials/sidebar.html" %}
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/navbar.html -->
+        {% include "admin_panel/partials/navbar.html" %}
+        <!-- partial -->
+        <div class="main-panel">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li %} %} class="{{ message.tags }}" endif if message.tags {% {%>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <!--            {% if messages %}-->
+            <!--            <input class="hidden" id="one" name="ossm" type="checkbox">-->
+            <!--            <label %} %} class="alert-message {{ message.tags }}" endif for="one" if message.tags {% {%>-->
+            <!--                <strong><i class="fa fa-heart"></i> Attention</strong> {{ message }}-->
+            <!--                <button><span class="close">×</span></button>-->
+            <!--            </label>-->
+            <!--            {% endif %}-->
+            <div class="content-wrapper">
+                <!-- Content Wrapper starts here -->
+                {% block content %}{% endblock content %}
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/footer.html -->
+            {% include "admin_panel/partials/footer.html" %}
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="{% static 'vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'vendors/progressbar.js/progressbar.min.js' %}"></script>
+<script src="{% static 'vendors/jvectormap/jquery-jvectormap.min.js' %}"></script>
+<script src="{% static 'vendors/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
+<script src="{% static 'vendors/owl-carousel-2/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}" type="text/javascript"></script>
+<script src="https://github.com/lou/multi-select/blob/master/js/jquery.multi-select.js" type="text/javascript"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="{% static 'js/off-canvas.js' %}"></script>
+<script src="{% static 'js/hoverable-collapse.js' %}"></script>
+<script src="{% static 'js/misc.js' %}"></script>
+<script src="{% static 'js/settings.js' %}"></script>
+<script src="{% static 'js/todolist.js' %}"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<script src="{% static 'js/dashboard.js' %}"></script>
+<!-- End custom js for this page -->
+</body>
+</html>

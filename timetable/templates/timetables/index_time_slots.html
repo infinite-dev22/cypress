@@ -1,0 +1,51 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Time Slots</h4>
+                <a class="btn btn-primary m-2" href="{% url 'time_slot_add' %}" type="button"><span
+                        class="fa fa-plus"></span> Add Time Slot</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    {% if time_slots is not None %}
+                    <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Active</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for time_slot in time_slots %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'time_slot_edit' time_slot.id %}"><span
+                                    class="mdi mdi-pencil-box-outline"></span></a>
+                        </td>
+                        <td>{{ time_slot.hour_from }}:{{ time_slot.minute_from }} {{ time_slot.meridian_from }}</td>
+                        <td>{{ time_slot.hour_to }}:{{ time_slot.minute_to }} {{ time_slot.meridian_to }}</td>
+                        <td>{{ time_slot.is_active }}</td>
+                        <td>
+                            <a href="{% url 'time_slot_del' time_slot.id %}"><span
+                                    class="mdi mdi-delete-forever"></span></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <div class="d-flex justify-content-center">
+                        <p class="text-info">Nothing to show here</p>
+                    </div>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

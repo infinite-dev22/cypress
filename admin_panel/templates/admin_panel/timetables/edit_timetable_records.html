@@ -1,0 +1,73 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    {% if timetable_record.id %}
+                    Edit
+                    {% else %}
+                    Add
+                    {% endif %} Timetable Record
+                </h4>
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ timetable_record.id }}">
+                    <div class="form-group">
+                        <label for="inputTimeSlot">Time Slot</label>
+                        <select class="form-control" id="inputTimeSlot"
+                                name="time_slot">
+                            <option value="">--Select timeslot--</option>
+                            {% if timetable_record.id %}
+                            <option selected value="{{ timetable_record.time_slot.id }}">{{ timetable_record.time_slot
+                                }}
+                            </option>
+                            {% endif %}
+                            {% for time_slot in time_slots %}
+                            <option value="{{ time_slot.id }}">{{ time_slot }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEvent">Event</label>
+                        <input class="form-control" id="inputEvent" name="event" placeholder="Event/Subject"
+                               type="text"
+                               value="{{ timetable_record.event }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDayOfWeek">Day Of Week</label>
+                        <select class="form-control" id="inputDayOfWeek"
+                                name="day_of_week">
+                            <option value="">--Select Day Of Week--</option>
+                            {% if timetable_record.id %}
+                            <option selected value="{{ timetable_record.day_of_week }}">{{ timetable_record.day_of_week
+                                }}
+                            </option>
+                            {% endif %}
+                            {% for day in week_days %}
+                            <option value="{{ day }}">{{ day }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary me-2" type="submit">
+                                {% if timetable_record.id %}
+                                Update
+                                {% else %}
+                                Submit
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -35,6 +35,7 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 ]
 
 FIRST_LOADED_APPS = [
@@ -43,6 +44,7 @@ FIRST_LOADED_APPS = [
 
 CUSTOM_APPS = [
     'accounts',
+    'admin_panel',
     'assessment',
     'chat',
     'dashboard',
@@ -123,7 +125,7 @@ AUTH_USER_MODEL = 'accounts.BaseUser'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 

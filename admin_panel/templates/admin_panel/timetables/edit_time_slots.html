@@ -1,0 +1,102 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+{# Edits Subject #}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {% if time_slot.id is null %}
+                <h4 class="card-title">Add Time Slot</h4>
+                {% else %}
+                <h4 class="card-title">Edit Time Slot</h4>
+                {% endif %}
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ time_slot.id }}">
+                    <!--                    <div class="row">-->
+                    <!--                        <div class="form-group col-md-6 col-sm-12">-->
+                    <!--                            <label for="inputTimeStampFrom">Time stamp from</label>-->
+                    <!--                            <input class="form-control" id="inputTimeStampFrom" name="timestamp_from"-->
+                    <!--                                   placeholder="Time Slot name..."-->
+                    <!--                                   type="text"-->
+                    <!--                                   value="{{ time_slot.title }}">-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group col-md-6 col-sm-12">-->
+                    <!--                            <label for="TimeStampTo">Time stamp to</label>-->
+                    <!--                            <input class="form-control" id="TimeStampTo" name="timestamp_to"-->
+                    <!--                                   placeholder="Time Slot name..."-->
+                    <!--                                   type="text"-->
+                    <!--                                   value="{{ time_slot.title }}">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="form-group">
+                        <label for="inputHourFrom">Time From</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <input class="form-control" id="inputHourFrom" max="12" min="1"
+                                       name="hour_from" placeholder="Hour from" type="number"
+                                       value="{{ time_slot.hour_from }}">
+                            </div>
+                            <div class="col-4">
+                                <input class="form-control" id="inputMinuteFrom" max="60"
+                                       min="0"
+                                       name="minute_from" placeholder="Minute from" type="number"
+                                       value="{{ time_slot.minute_from }}">
+                            </div>
+                            <div class="col-4">
+                                <select class="form-control" id="inputMeridianFrom"
+                                        name="meridian_from">
+                                    <option>--Select Meridian--</option>
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputHourTo">Time To</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <input class="form-control" id="inputHourTo" max="12" min="1"
+                                       name="hour_to" placeholder="Hour to" type="number"
+                                       value="{{ time_slot.hour_to }}">
+                            </div>
+                            <div class="col-4">
+                                <input class="form-control" id="inputMinuteTo" max="60" min="0"
+                                       name="minute_to" placeholder="Minute to" type="number"
+                                       value="{{ time_slot.minute_to }}">
+                            </div>
+                            <div class="col-4">
+                                <select class="form-control" id="inputMeridianTo"
+                                        name="meridian_to">
+                                    <option>--Select Meridian--</option>
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="form-check form-check-flat form-check-primary">-->
+                    <!--                        <label class="form-check-label">-->
+                    <!--                            <input checked class="form-check-input" name="is_active"-->
+                    <!--                                   type="checkbox" value="{{ subject.is_active }}">Is active</label>-->
+                    <!--                    </div>-->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
+                        </div>
+                        <div>
+                            {% if subject.id %}
+                            <button class="btn btn-primary me-2" type="submit">Update</button>
+                            {% else %}
+                            <button class="btn btn-primary me-2" type="submit">Submit</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

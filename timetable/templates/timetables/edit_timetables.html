@@ -1,0 +1,79 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+{# Edits Subject #}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {% if timetable.id is null %}
+                <h4 class="card-title">Add Timetable</h4>
+                {% else %}
+                <h4 class="card-title">Edit Timetable</h4>
+                {% endif %}
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ timetable.id }}">
+                    <div class="form-group">
+                        <label for="inputTimetableType">Timetable type</label>
+                        <select class="form-control" id="inputTimetableType"
+                                name="timetable_type">
+                            <option value="">--Select Timetable Types--</option>
+                            {% for timetable_type in timetable_types %}
+                            <option value="{{ timetable_type.id }}">{{ timetable_type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputClass">Classes</label>
+                        <select class="form-control" id="inputClass" multiple
+                                name="class_ids">
+                            <option value="">--Select Classes--</option>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSubject">Subjects</label>
+                        <select class="form-control" id="inputSubject" multiple
+                                name="subject">
+                            <option value="">--Select Subjects--</option>
+                            {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{ subject }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputExam">Examination</label>
+                        <select class="form-control" id="inputExam"
+                                name="exam">
+                            <option value="">--Select Examinations--</option>
+                            {% for exam in exams %}
+                            <option value="{{ exam.id }}">{{ exam }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <!--                    <div class="form-check form-check-flat form-check-primary">-->
+                    <!--                        <label class="form-check-label">-->
+                    <!--                            <input checked class="form-check-input" name="is_active"-->
+                    <!--                                   type="checkbox" value="{{ subject.is_active }}">Is active</label>-->
+                    <!--                    </div>-->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
+                        </div>
+                        <div>
+                            {% if subject.id %}
+                            <button class="btn btn-primary me-2" type="submit">Update</button>
+                            {% else %}
+                            <button class="btn btn-primary me-2" type="submit">Submit</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

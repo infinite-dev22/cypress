@@ -163,7 +163,7 @@
                 <a class="nav-link" data-bs-toggle="dropdown" href="#" id="profileDropdown">
                     <div class="navbar-profile">
                         <img alt="" class="img-xs rounded-circle" src="{% static 'images/faces/face15.jpg' %}">
-                        <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                        <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ request.user.username }}</p>
                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                     </div>
                 </a>

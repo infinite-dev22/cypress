@@ -1,0 +1,87 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+{# Edits Grade Detail #}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {% if grade_detail.id %}
+                <button class="btn btn-primary me-2" type="submit">Edit Grade Detail</button>
+                {% else %}
+                <button class="btn btn-primary me-2" type="submit">Add Grade Detail</button>
+                {% endif %}
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ grade_detail.id }}">
+                    <div class="form-group">
+                        <label for="gradeSelect">Grade</label>
+                        <select class="form-control form-control-lg" id="gradeSelect"
+                                name="grade">
+                            <option value="">--Select Grade--</option>
+                            {% for grade in grades %}
+                            <option value="{{ grade.id }}">{{ grade }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="classSelect">Classes</label>
+                        <select class="form-control form-control-lg" id="classSelect" multiple
+                                name="class">
+                            <option value="">--Select Classes--</option>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subjectSelect">Subjects</label>
+                        <select class="form-control form-control-lg form-select" id="subjectSelect" multiple
+                                name="subject">
+                            <option value="">--Select Subjects--</option>
+                            {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{ subject }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="inputFrom">From(%)</label>
+                            <input class="form-control" id="inputFrom" name="marks_from" placeholder="Start Score"
+                                   type="number"
+                                   value="{{ grade_detail.marks_from }}">
+                        </div>
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="inputTo">To(%)</label>
+                            <input class="form-control" id="inputTo" name="marks_to" placeholder="End Score"
+                                   type="number"
+                                   value="{{ grade_detail.marks_to }}">
+                        </div>
+                    </div>
+                    {% if grade_detail.id %}
+                    <div class="form-group">
+                        <label class="switch">
+                            <input name="is_active" type="checkbox" value="{{ grade_detail.is_active }}">
+                            <span class="slider round"></span>
+                        </label>
+                        <label>&nbsp&nbsp Active</label>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
+                        </div>
+                        <div>
+                            {% if grade.id %}
+                            <button class="btn btn-primary me-2" type="submit">Update</button>
+                            {% else %}
+                            <button class="btn btn-primary me-2" type="submit">Submit</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

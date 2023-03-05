@@ -1,0 +1,261 @@
+{% load static %}
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+        <a class="sidebar-brand brand-logo" href="{% url 'admin_dashboard' %}"><img alt="logo"
+                                                                                    src="{% static 'images/logo.svg' %}"/></a>
+        <a class="sidebar-brand brand-logo-mini" href="{% url 'admin_dashboard' %}"><img alt="logo"
+                                                                                         src="{% static 'images/logo-mini.svg' %}"/></a>
+    </div>
+    <ul class="nav">
+        <li class="nav-item profile">
+            <div class="profile-desc">
+                <div class="profile-pic">
+                    <div class="count-indicator">
+                        <img alt="" class="img-xs rounded-circle " src="{% static 'images/faces/face15.jpg' %}">
+                        <span class="count bg-success"></span>
+                    </div>
+                    <div class="profile-name">
+                        <h5 class="mb-0 font-weight-normal">{{ request.user.username }}</h5>
+                        <span>{{ request.user.user_type }}</span>
+                    </div>
+                </div>
+                <a data-bs-toggle="dropdown" href="#" id="profile-dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                <div aria-labelledby="profile-dropdown"
+                     class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list">
+                    <a class="dropdown-item preview-item" href="#">
+                        <div class="preview-thumbnail">
+                            <div class="preview-icon bg-dark rounded-circle">
+                                <i class="mdi mdi-settings text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="preview-item-content">
+                            <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item preview-item" href="#">
+                        <div class="preview-thumbnail">
+                            <div class="preview-icon bg-dark rounded-circle">
+                                <i class="mdi mdi-onepassword  text-info"></i>
+                            </div>
+                        </div>
+                        <div class="preview-item-content">
+                            <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item preview-item" href="#">
+                        <div class="preview-thumbnail">
+                            <div class="preview-icon bg-dark rounded-circle">
+                                <i class="mdi mdi-calendar-today text-success"></i>
+                            </div>
+                        </div>
+                        <div class="preview-item-content">
+                            <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item nav-category">
+            <span class="nav-link">Navigation</span>
+        </li>
+        <div class="item-configuration" style="height: 80%; overflow-y: auto;">
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{% url 'admin_dashboard' %}">
+        <span class="menu-icon">
+          <i class="mdi mdi-speedometer"></i>
+        </span>
+                    <span class="menu-title">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item menu-items">
+                <a aria-controls="ui-organisation" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+                   href="#ui-organisation">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-briefcase"></i>
+                          </span>
+                    <span class="menu-title">Organisations</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-organisation">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_org' %}">Organisations</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_org_profiles' %}">Organisation
+                            Profiles</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a aria-controls="ui-user" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+                   href="#ui-user">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-account"></i>
+                          </span>
+                    <span class="menu-title">User Management</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-user">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_role' %}">User Roles</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_user_type' %}">User Types</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_user' %}">Users</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_student' %}">Students</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_teacher' %}">Teachers</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a aria-controls="ui-echlon" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+                   href="#ui-echlon">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-book-open-page-variant "></i>
+                          </span>
+                    <span class="menu-title">Class Management</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-echlon">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_level' %}">Levels</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_term' %}">Terms</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_class' %}">Streams</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_subject' %}">Subjects</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a aria-controls="ui-grading" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+                   href="#ui-grading">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-chart-histogram"></i>
+                          </span>
+                    <span class="menu-title">Grading</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-grading">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_grades' %}">Grades</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_grade_details' %}">Grade
+                            Details</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a aria-controls="ui-examining" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+                   href="#ui-examining">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-test-tube"></i>
+                          </span>
+                    <span class="menu-title">Exams & Tests</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-examining">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_exam_types' %}">Exam
+                            Types</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_exams' %}">Exams</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_results' %}">Exam
+                            Results</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_scores' %}">Scores</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
+                    </ul>
+                </div>
+            </li>
+            <!--            <li class="nav-item menu-items">-->
+            <!--                <a class="nav-link" data-bs-toggle="collapse" href="#ui-assessment" aria-expanded="false"-->
+            <!--                   aria-controls="ui-assessment">-->
+            <!--              <span class="menu-icon">-->
+            <!--                <i class="mdi mdi-table-large"></i>-->
+            <!--              </span>-->
+            <!--                    <span class="menu-title">Assessment</span>-->
+            <!--                    <i class="menu-arrow"></i>-->
+            <!--                </a>-->
+            <!--                <div class="collapse" id="ui-assessment">-->
+            <!--                    <ul class="nav flex-column sub-menu">-->
+            <!--                        <li class="nav-item">-->
+            <!--                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-grading" aria-expanded="false"-->
+            <!--                               aria-controls="ui-grading">-->
+            <!--                          <span class="menu-icon">-->
+            <!--                            <i class="mdi mdi-laptop"></i>-->
+            <!--                          </span>-->
+            <!--                                <span class="menu-title">Grading</span>-->
+            <!--                                <i class="menu-arrow"></i>-->
+            <!--                            </a>-->
+            <!--                            <div class="collapse" id="ui-grading">-->
+            <!--                                <ul class="nav flex-column sub-menu">-->
+            <!--                                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_grades' %}">Grades</a>-->
+            <!--                                    </li>-->
+            <!--                                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_grade_details' %}">Grade-->
+            <!--                                        Details</a></li>-->
+            <!--                                </ul>-->
+            <!--                            </div>-->
+            <!--                        </li>-->
+            <!--                        <li class="nav-item">-->
+            <!--                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-examining" aria-expanded="false"-->
+            <!--                               aria-controls="ui-examining">-->
+            <!--                          <span class="menu-icon">-->
+            <!--                            <i class="mdi mdi-laptop"></i>-->
+            <!--                          </span>-->
+            <!--                                <span class="menu-title">Examinations</span>-->
+            <!--                                <i class="menu-arrow"></i>-->
+            <!--                            </a>-->
+            <!--                            <div class="collapse" id="ui-examining">-->
+            <!--                                <ul class="nav flex-column sub-menu">-->
+            <!--                                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_exam_types' %}">Exam-->
+            <!--                                        Types</a></li>-->
+            <!--                                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_exams' %}">Exams</a>-->
+            <!--                                    </li>-->
+            <!--                                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_results' %}">Exam-->
+            <!--                                        Results</a></li>-->
+            <!--                                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_scores' %}">Scores</a>-->
+            <!--                                    </li>-->
+            <!--                                </ul>-->
+            <!--                            </div>-->
+            <!--                        </li>-->
+            <!--                        <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>-->
+            <!--                    </ul>-->
+            <!--                </div>-->
+            <!--            </li>-->
+            <li class="nav-item menu-items">
+                <a aria-controls="ui-timetables" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+                   href="#ui-timetables">
+              <span class="menu-icon">
+                <i class="mdi mdi-table-large"></i>
+              </span>
+                    <span class="menu-title">Timetables</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-timetables">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_timetables_types' %}">TimeTable
+                            Types</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_timetables' %}">Time Tables</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_time_slots' %}">Time Slots</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_timetables_records' %}">TimeTable
+                            Records</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="{% url 'admin_chat' %}">
+                    <span class="menu-icon">
+                      <i class="mdi mdi-message"></i>
+                    </span>
+                    <span class="menu-title">Chat</span>
+                </a>
+            </li>
+        </div>
+    </ul>
+</nav>

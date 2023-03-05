@@ -1,0 +1,62 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+{# Edits Room #}
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                {% if room.id is null %}
+                <h4 class="card-title">Add Room</h4>
+                {% else %}
+                <h4 class="card-title">Edit Room</h4>
+                {% endif %}
+                <form action="" class="forms-sample" method="POST">
+                    {% csrf_token %}
+                    <input name="id" type="hidden" value="{{ room.id }}">
+                    <div class="form-group">
+                        <label for="inputTitle">Title</label>
+                        <input class="form-control" id="inputTitle" name="title" placeholder="Title..." type="text"
+                               value="{{ room.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="levelSelect">Classes</label>
+                        <select class="form-control form-control-lg" id="levelSelect" multiple name="class">
+                            <option value="">--Select Classes--</option>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <textarea class="form-control" id="inputDescription" name="description"
+                                  placeholder="Description...">{{ room.description }}</textarea>
+                    </div>
+                    {% if class.id %}
+                    <div class="form-group">
+                        <label class="switch">
+                            <input name="is_active" type="checkbox" value="{{ room.is_active }}">
+                            <span class="slider round"></span>
+                        </label>
+                        <label>&nbsp&nbsp Active</label>
+                    </div>
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
+                        </div>
+                        <div>
+                            {% if room.id %}
+                            <button class="btn btn-primary me-2" type="submit">Update</button>
+                            {% else %}
+                            <button class="btn btn-primary me-2" type="submit">Submit</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
