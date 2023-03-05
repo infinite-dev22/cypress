@@ -40,7 +40,7 @@ class Class(models.Model):
 
 
 class Room(models.Model):
-    class_fk = models.ForeignKey(Class, related_name='class_fk', on_delete=models.CASCADE, null=True)
+    class_fk = models.ManyToManyField(Class, related_name='class_fk')
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
     slug = models.SlugField(max_length=150)
     is_active = models.BooleanField(default=True)

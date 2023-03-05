@@ -16,7 +16,8 @@ Including another URLconf
 from django.urls import path
 
 from admin_panel.views import admin_users, admin_organisation, admin_roles, admin_user_types, admin_dashboard, \
-    admin_echelon, admin_students, admin_teachers, admin_terms, admin_subjects, admin_chats, admin_timetables
+    admin_echelon, admin_students, admin_teachers, admin_terms, admin_subjects, admin_chats, admin_timetables, \
+    admin_grades, admin_assessments
 
 DASHBOARD_URLS = [
     path('', admin_dashboard.dashboard_admin, name="admin_dashboard"),
@@ -42,6 +43,7 @@ USER_URLS = [
     path('user_type/', admin_user_types.index_user_type, name="admin_user_type"),
     path('user_type/add/', admin_user_types.create_user_type, name="user_type_add"),
     path('user_type/add/<int:pk>', admin_user_types.edit_user_type, name="user_type_edit"),
+    path('user_type/del/<int:pk>', admin_user_types.delete_user_type, name="user_type_del"),
 
     # User Urls
     path('user/', admin_users.index_base_user, name="admin_user"),
@@ -71,6 +73,13 @@ CLASSES_URLS = [
     path('class/add/', admin_echelon.create_class, name="class_add"),
     path('class/add/<int:pk>', admin_echelon.edit_class, name="class_edit"),
     path('class/del/<int:pk>', admin_echelon.delete_class, name="class_del"),
+]
+
+ROOMS_URLS = [
+    path('room/', admin_echelon.index_rooms, name="admin_room"),
+    path('room/add/', admin_echelon.create_room, name="room_add"),
+    path('room/add/<int:pk>', admin_echelon.edit_room, name="room_edit"),
+    path('room/del/<int:pk>', admin_echelon.delete_room, name="room_del"),
 ]
 
 SUBJECTS_URLS = [
@@ -122,6 +131,42 @@ TIMETABLES_URLS = [
     path('timetables/del/<int:pk>', admin_timetables.delete_timetable, name="timetable_del"),
 ]
 
+GRADES_URLS = [
+    # Grades
+    path('grades/', admin_grades.index_grades, name="admin_grades"),
+    path('grades/create/', admin_grades.create_grade, name="grade_add"),
+    path('grades/<int:pk>', admin_grades.edit_grade, name="grade_edit"),
+    path('grades/del/<int:pk>', admin_grades.delete_grade, name="grade_del"),
+    # Grade Details
+    path('grades/details/', admin_grades.index_grade_details, name="admin_grade_details"),
+    path('grades/details/create/', admin_grades.create_grade_detail, name="grade_detail_add"),
+    path('grades/details/<int:pk>', admin_grades.edit_grade_detail, name="grade_detail_edit"),
+    path('grades/details/del/<int:pk>', admin_grades.delete_grade_detail, name="grade_detail_del"),
+]
+
+EXAMS_URLS = [
+    # Exam Types
+    path('assessments/exam_type/', admin_assessments.index_exam_types, name="admin_exam_types"),
+    path('assessments/exam_type/add/', admin_assessments.create_exam_type, name="exam_type_add"),
+    path('assessments/exam_type/add/<int:pk>', admin_assessments.edit_exam_type, name="exam_type_edit"),
+    path('assessments/exam_type/del/<int:pk>', admin_assessments.delete_exam_type, name="exam_type_del"),
+    # Exams
+    path('assessments/exam/', admin_assessments.index_exams, name="admin_exams"),
+    path('assessments/exam/add/', admin_assessments.create_exam, name="exam_add"),
+    path('assessments/exam/add/<int:pk>', admin_assessments.edit_exam, name="exam_edit"),
+    path('assessments/exam/del/<int:pk>', admin_assessments.delete_exam, name="exam_del"),
+    # Exam Results
+    path('assessments/result/', admin_assessments.index_results, name="admin_results"),
+    path('assessments/result/add/', admin_assessments.create_result, name="result_add"),
+    path('assessments/result/add/<int:pk>', admin_assessments.edit_result, name="result_edit"),
+    path('assessments/result/del/<int:pk>', admin_assessments.delete_result, name="result_del"),
+    # Exam Scores
+    path('assessments/score/', admin_assessments.index_scores, name="admin_scores"),
+    path('assessments/score/add/', admin_assessments.create_score, name="score_add"),
+    path('assessments/score/add/<int:pk>', admin_assessments.edit_score, name="score_edit"),
+    path('assessments/score/del/<int:pk>', admin_assessments.delete_score, name="score_del")
+]
+
 urlpatterns = DASHBOARD_URLS \
               + ORGANISATION_URLS \
               + CONTROLS_URLS \
@@ -129,8 +174,11 @@ urlpatterns = DASHBOARD_URLS \
               + LEVELS_URLS \
               + TERMS_URLS \
               + CLASSES_URLS \
+              + ROOMS_URLS \
               + SUBJECTS_URLS \
               + TEACHERS_URLS \
               + STUDENTS_URLS \
               + CHATS_URLS \
-              + TIMETABLES_URLS
+              + TIMETABLES_URLS \
+              + GRADES_URLS \
+              + EXAMS_URLS

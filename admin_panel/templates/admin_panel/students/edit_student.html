@@ -9,24 +9,25 @@
                 <h4 class="card-title">{% if student.id is null %}Add{% else %}Edit{% endif %} Student</h4>
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
-                    <input name="id" type="hidden" value="{{ user_type.id }}">
+                    <input name="id" type="hidden" value="{{ student.id }}">
                     <div class="row">
                         <div class="form-group col-4">
                             <label for="inputFirstName">First Name</label>
                             <input class="form-control" id="inputFirstName" name="first_name"
                                    placeholder="First name..."
-                                   type="text" value="{{ user_type.title }}">
+                                   type="text" value="{{ student.first_name }}">
                         </div>
                         <div class="form-group col-4">
                             <label for="inputMiddleName">Middle Name</label>
                             <input class="form-control" id="inputMiddleName" name="middle_name"
                                    placeholder="Middle name..."
-                                   type="text" value="{{ user_type.title }}">
+                                   type="text" value="{{ student.middle_name }}">
                         </div>
                         <div class="form-group col-4">
                             <label for="inputLastName">Last Name</label>
-                            <input class="form-control" id="inputLastName" name="last_name" placeholder="Last name..."
-                                   type="text" value="{{ user_type.title }}">
+                            <input class="form-control" id="inputLastName" name="last_name"
+                                   placeholder="Last name..."
+                                   type="text" value="{{ student.last_name }}">
                         </div>
                     </div>
                     <div class="row">
@@ -35,31 +36,40 @@
                             <select aria-multiselectable="true" class="form-control" id="userTypeSelect" multiple
                                     name="parent">
                                 {% for parent in parents %}
-                                <option value="{{ user_type.id }}">{{ parent }}</option>
+                                <option value="{{ parent.id }}">{{ parent }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-4">
-                            <label for="inputUserName">User Name</label>
-                            <input class="form-control" id="inputUserName" name="username" placeholder="Username..."
-                                   type="text" value="{{ user_type.title }}">
+                            <label for="classSelect">Class</label>
+                            <select class="form-control" id="classSelect"
+                                    name="class_id">
+                                {% for class in classes %}
+                                <option value="{{ class.id }}">{{ class }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inputAddress">Address</label>
+                            <input class="form-control" id="inputAddress" name="address" placeholder="Address..."
+                                   type="text" value="{{ student.address }}">
                         </div>
                         <div class="form-group col-4">
                             <label for="inputEmail">Email Address</label>
                             <input class="form-control" id="inputEmail" name="email" placeholder="Email..." type="email"
-                                   value="{{ user_type.title }}">
+                                   value="{{ student.email }}">
                         </div>
                     </div>
                     <!--                    <div class="row">-->
                     <!--                        <div class="form-group col-6">-->
                     <!--                            <label for="inputPassword">Password</label>-->
                     <!--                            <input class="form-control" id="inputPassword" name="password1" placeholder="Password..."-->
-                    <!--                                   type="password" value="{{ user_type.title }}">-->
+                    <!--                                   type="password" value="{{ student.title }}">-->
                     <!--                        </div>-->
                     <!--                        <div class="form-group col-6">-->
                     <!--                            <label for="inputConfirmPassword">Confirm Password</label>-->
                     <!--                            <input class="form-control" id="inputConfirmPassword" name="password2"-->
-                    <!--                                   placeholder="Confirm password..." type="password" value="{{ user_type.title }}">-->
+                    <!--                                   placeholder="Confirm password..." type="password" value="{{ student.title }}">-->
                     <!--                        </div>-->
                     <!--                    </div>-->
                     <!--                    <div class="form-group">-->
@@ -72,12 +82,12 @@
                     <!--                    </div>-->
                     <!--                    <div class="form-group">-->
                     <!--                        <label for="inputDescription">Description</label>-->
-                    <!--                        <textarea class="form-roles" id="inputDescription" placeholder="Description..." name="description">{{ user_type.description }}</textarea>-->
+                    <!--                        <textarea class="form-roles" id="inputDescription" placeholder="Description..." name="description">{{ student.description }}</textarea>-->
                     <!--                    </div>-->
-                    <!--                    {% if user_type.id %}-->
+                    <!--                    {% if student.id %}-->
                     <!--                        <div class="form-group">-->
                     <!--                            <label class="switch">-->
-                    <!--                                <input type="checkbox" name="is_active" value="{{ user_type.is_active }}">-->
+                    <!--                                <input type="checkbox" name="is_active" value="{{ student.is_active }}">-->
                     <!--                                <span class="slider round"></span>-->
                     <!--                            </label>-->
                     <!--                            <label>&nbsp&nbsp Active</label>-->
@@ -85,7 +95,7 @@
                     <!--                    {% endif %}-->
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <button class="btn btn-dark">Cancel</button>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
                         </div>
                         <div>
                             {% if org.id %}

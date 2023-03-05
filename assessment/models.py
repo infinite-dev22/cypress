@@ -2,12 +2,17 @@ from django.db import models
 from django.template.defaultfilters import slugify
 
 from accounts.models.organisation import Organisation
-from echelon.models import Class, Room
+from accounts.models.user import Student
+from echelon.models import Class, Room, Term
 from grade.models import GradeMaster
 from subject.models import Subject
 
-
 # Create your models here.
+"""
+Need to add comments from both the teachers and head teacher or principal.
+"""
+
+
 class ExamType(models.Model):
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
@@ -25,11 +30,11 @@ class ExamType(models.Model):
         return super().save(*args, **kwargs)
 
 
-class ExamMaster(models.Model):
+class Exam(models.Model):
     exam_type = models.ForeignKey(ExamType, on_delete=models.CASCADE)
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
     classes = models.ManyToManyField(Class)
-    term = models.IntegerField(null=False, blank=False)
+    term = models.ForeignKey(Term, on_delete=models.DO_NOTHING)
     year = models.IntegerField(null=False, blank=False)
     is_active = models.BooleanField(default=True)
     description = models.TextField(null=True, blank=True)
@@ -45,30 +50,37 @@ class ExamMaster(models.Model):
         return super().save(*args, **kwargs)
 
 
-class ExamResult(models.Model):
-    exam_master = models.ManyToManyField(ExamMaster, blank=True)
-    class_fk = models.ManyToManyField(Class, blank=True)
-    subject = models.ManyToManyField(Subject, blank=True)
-    room = models.ManyToManyField(Room, blank=True)
-    position = models.IntegerField(null=False, blank=False)
+class Result(models.Model):
+    PROMOTED = (
+        (0, 'No'),
+        (1, 'Yes'),
+    )
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False)
+    class_fk = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, blank=True)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, blank=True)
+    total_score = models.IntegerField(null=False, blank=False, default=0)
+    average_score = models.IntegerField(null=False, blank=False, default=0)
+    promotion = models.SmallIntegerField(choices=PROMOTED, default=0)
+    position = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(max_length=150)
 
     def __str__(self):
-        return self.subject.title
+        return f"{self.student}"
 
 
-class Marks(models.Model):
-    grade = models.ManyToManyField(GradeMaster, blank=True)
-    exam_result = models.ManyToManyField(ExamResult, blank=True)
-    test_1 = models.IntegerField(null=False, blank=False)
-    test_2 = models.IntegerField(null=False, blank=False)
-    test_3 = models.IntegerField(null=False, blank=False)
-    test_4 = models.IntegerField(null=False, blank=False)
-    total_mark = models.IntegerField(null=False, blank=False)
-    average_mark = models.IntegerField(null=False, blank=False)
+class Score(models.Model):
+    # Should contain a subject
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, blank=True)
+    grade = models.ForeignKey(GradeMaster, on_delete=models.CASCADE, blank=True)
+    exam_result = models.ForeignKey(Result, on_delete=models.CASCADE, blank=True)
+    test_score = models.IntegerField(null=True, blank=True)
+    total_mark = models.IntegerField(null=True, blank=True)
+    average_mark = models.IntegerField(null=True, blank=True)
     year = models.IntegerField(null=False, blank=False)
-    is_processed = models.BooleanField(default=True)
+    is_processed = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(max_length=150)
 
