@@ -17,20 +17,22 @@
                         <th>Edit</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Class</th>
                         <th>Active</th>
-                        <th>Staff</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for student in students %}
                     <tr>
-                        <td><a href="#"><span class="mdi mdi-pencil-box-outline"></span></a></td>
-                        <td>{{ student.username }}</td>
+                        <td><a href="{% url 'student_edit' student.id %}"><span
+                                class="mdi mdi-pencil-box-outline"></span></a></td>
+                        <td> {{ student.first_name }} {{ student.middle_name }} {{ student.last_name }}</td>
                         <td>{{ student.email }}</td>
+                        <td>{{ student.class_fk }}</td>
                         <td>{{ student.is_active }}</td>
-                        <td>{{ student.is_staff }}</td>
-                        <td><a href="#"><span class="mdi mdi-delete-forever"></span></a></td>
+                        <td><a href="{% url 'student_del' student.id %}"><span
+                                class="mdi mdi-delete-forever"></span></a></td>
                     </tr>
                     {% endfor %}
                     </tbody>

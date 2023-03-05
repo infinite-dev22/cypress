@@ -1,0 +1,50 @@
+{% extends "admin_panel/admin_base.html" %}
+{% load static %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="card-title">Exam Scores</h4>
+                <a class="btn btn-primary m-2" href="{% url 'score_add' %}" master="button"><span
+                        class="fa fa-plus"></span> Add Exam Score</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    {% if scores is not None %}
+                    <thead>
+                    <tr>
+                        <th>Edit</th>
+                        <th>Result</th>
+                        <th>Subject</th>
+                        <th>Grade</th>
+                        <th>Score(%)</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for score in scores %}
+                    <tr>
+                        <td><a href="{% url 'score_edit' score.id %}"><span
+                                class="mdi mdi-pencil-box-outline"></span></a>
+                        </td>
+                        <td>{{ score.exam_result }}</td>
+                        <td>{{ score.subject }}</td>
+                        <td>{{ score.grade }}</td>
+                        <td>{{ score.test_score }}</td>
+                        <td><a href="{% url 'score_del' score.id %}"><span class="mdi mdi-delete-forever"></span></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% else %}
+                    <div class="d-flex justify-content-center">
+                        <p class="text-info">Nothing to show here</p>
+                    </div>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

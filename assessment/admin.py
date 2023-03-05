@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import ExamType, ExamMaster, ExamResult, Marks
+from .models import ExamType, Exam, Result, Score
 
 # Register your models here.
 admin.site.register([
     ExamType,
-    ExamMaster,
-    ExamResult,
-    Marks,
+    Exam,
+    Result,
+    Score,
 ])

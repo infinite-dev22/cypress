@@ -32,7 +32,7 @@ class BaseUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, unique=False, null=False, blank=False)
     middle_name = models.CharField(max_length=150, unique=False, null=True, blank=True)
     last_name = models.CharField(max_length=150, unique=False, null=False, blank=False)
-    username = models.CharField(max_length=150, unique=True, null=False, blank=False)
+    username = models.CharField(max_length=150, unique=True, null=True, blank=True)
     email = models.CharField(max_length=150, unique=True, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     slug = models.SlugField(max_length=150)
@@ -73,7 +73,7 @@ class Teacher(BaseUser):
 
 
 class Student(BaseUser):
-    parents = models.ManyToManyField(User, blank=False)
+    parents = models.ManyToManyField(User, blank=True)
     class_fk = models.ForeignKey(Class, related_name='student', on_delete=models.CASCADE, null=True)
     subject = models.ManyToManyField(Subject, blank=False)  # Attach all non-option subjects
     profile_pic = models.ImageField(upload_to='students_photos/', null=True)

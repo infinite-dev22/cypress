@@ -59,10 +59,11 @@ def edit_subject(request, pk):
             subject = Subject.objects.get(id=pk)
             subject.name = name
             subject.abbreviated_name = abbreviated_name
-            subject.classes = classes
+            # subject.classes = classes
             subject.is_optional = is_optional
             subject.is_active = is_active
             subject.save()
+            subject.classes.set(classes)
             return redirect("admin_subject")
 
         subject = Subject.objects.get(id=pk)
