@@ -1,7 +1,15 @@
+import calendar
+import datetime
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 
+from assessment.models import Exam
+from echelon.models import Class
+from subject.models import Subject
 from timetable.models import TimetableType, TimetableRecord, Timetable, TimeSlot
+
+time_format = "%I::%M %p"
 
 
 # Timetable Type
@@ -19,8 +27,7 @@ def index_timetable_type(request):
                 "timetable_types": None
             }
             return render(request, "admin_panel/timetables/index_timetable_types.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def create_timetable_type(request):
@@ -37,8 +44,7 @@ def create_timetable_type(request):
             timetable_type.save()
             return redirect("admin_timetables_types")
         return render(request, "admin_panel/timetables/edit_timetable_types.html")
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def edit_timetable_type(request, pk):
@@ -59,16 +65,14 @@ def edit_timetable_type(request, pk):
             "timetable_type": timetable_type,
         }
         return render(request, "admin_panel/timetables/edit_timetable_types.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def delete_timetable_type(request, pk):
     if request.user.is_authenticated:
         TimetableType.objects.get(id=pk).delete()
         return redirect('admin_timetables_types')
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 # Timetable Records
@@ -86,56 +90,68 @@ def index_timetable_record(request):
                 "timetable_records": None
             }
             return render(request, "admin_panel/timetables/index_timetable_records.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def create_timetable_record(request):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == "POST":
-            title = request.POST["title"]
-            description = request.POST["description"]
+            event = request.POST["event"]
+            time_slot_id = request.POST["time_slot"]
+            time_slot = TimeSlot.objects.get(id=time_slot_id)
+            day_of_week = request.POST["day_of_week"]
             # is_active = request.POST.get("is_active", False)
             timetable_record = TimetableRecord(
-                title=title,
+                event=event,
+                time_slot=time_slot,
+                day_of_week=day_of_week,
                 # is_active=is_active,
-                description=description
             )
             timetable_record.save()
-            return redirect("admin_timetables_types")
-        return render(request, "admin_panel/timetables/edit_timetable_records.html")
-    else:
-        return redirect('login_admin_user')
+            return redirect("admin_timetables_records")
+        time_slots = TimeSlot.objects.all()
+        week_days = calendar.day_name
+        context = {
+            "time_slots": time_slots,
+            "week_days": week_days
+        }
+        return render(request, "admin_panel/timetables/edit_timetable_records.html", context)
+    return redirect('login_admin_user')
 
 
 def edit_timetable_record(request, pk):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == "POST":
-            title = request.POST["title"]
-            description = request.POST["description"]
+            event = request.POST["event"]
+            time_slot_id = request.POST["time_slot"]
+            time_slot = TimeSlot.objects.get(id=time_slot_id)
+            day_of_week = request.POST["day_of_week"]
             # is_active = request.POST.get("is_active", False)
             timetable_record = TimetableRecord.objects.get(id=pk)
-            timetable_record.title = title
-            timetable_record.description = description
+            timetable_record.event = event
+            timetable_record.time_slot = time_slot
+            timetable_record.day_of_week = day_of_week
             # timetable_record.is_active = is_active
             timetable_record.save()
-            return redirect("admin_timetables_types")
+            return redirect("admin_timetables_records")
 
         timetable_record = TimetableRecord.objects.get(id=pk)
+        time_slots = TimeSlot.objects.all()
+        week_days = calendar.day_name
         context = {
+            "time_slots": time_slots,
             "timetable_record": timetable_record,
+            "week_days": week_days
         }
         return render(request, "admin_panel/timetables/edit_timetable_records.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def delete_timetable_record(request, pk):
     if request.user.is_authenticated:
         TimetableRecord.objects.get(id=pk).delete()
         return redirect('admin_timetables_records')
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 # Time Slot
@@ -153,56 +169,81 @@ def index_time_slot(request):
                 "time_slots": None
             }
             return render(request, "admin_panel/timetables/index_time_slots.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def create_time_slot(request):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == "POST":
-            title = request.POST["title"]
-            description = request.POST["description"]
+            hour_from = request.POST["hour_from"]
+            minute_from = request.POST["minute_from"]
+            meridian_from = request.POST["meridian_from"]
+            hour_to = request.POST["hour_to"]
+            minute_to = request.POST["minute_to"]
+            meridian_to = request.POST["meridian_to"]
+
+            time_from = f"{hour_from}::{minute_from} {meridian_from}"
+            time_to = f"{hour_to}::{minute_to} {meridian_to}"
+            time_from = datetime.datetime.strptime(time_from, time_format).time()
+            time_to = datetime.datetime.strptime(time_to, time_format).time()
             # is_active = request.POST.get("is_active", False)
             time_slot = TimeSlot(
-                title=title,
+                hour_from=hour_from,
+                minute_from=minute_from,
+                meridian_from=meridian_from,
+                hour_to=hour_to,
+                minute_to=minute_to,
+                meridian_to=meridian_to,
+                timestamp_from=time_from,
+                timestamp_to=time_to,
                 # is_active=is_active,
-                description=description
             )
             time_slot.save()
-            return redirect("admin_timetables_types")
+            return redirect("admin_time_slots")
         return render(request, "admin_panel/timetables/edit_time_slots.html")
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def edit_time_slot(request, pk):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == "POST":
-            title = request.POST["title"]
-            description = request.POST["description"]
+            hour_from = request.POST["hour_from"]
+            minute_from = request.POST["minute_from"]
+            meridian_from = request.POST["meridian_from"]
+            hour_to = request.POST["hour_to"]
+            minute_to = request.POST["minute_to"]
+            meridian_to = request.POST["meridian_to"]
+
+            timestamp_from = f"{hour_from}::{minute_from} {meridian_from}"
+            timestamp_to = f"{hour_to}::{minute_to} {meridian_to}"
+
             # is_active = request.POST.get("is_active", False)
             time_slot = TimeSlot.objects.get(id=pk)
-            time_slot.title = title
-            time_slot.description = description
+            time_slot.hour_from = hour_from
+            time_slot.minute_from = minute_from
+            time_slot.meridian_from = meridian_from
+            time_slot.hour_to = hour_to
+            time_slot.minute_to = minute_to
+            time_slot.meridian_to = meridian_to
+            # time_slot.timestamp_from = time.strptime(timestamp_from, time_format),
+            # time_slot.timestamp_to = time.strptime(timestamp_to, time_format),
             # time_slot.is_active = is_active
             time_slot.save()
-            return redirect("admin_timetables_types")
+            return redirect("admin_time_slots")
 
         time_slot = TimeSlot.objects.get(id=pk)
         context = {
             "time_slot": time_slot,
         }
         return render(request, "admin_panel/timetables/edit_time_slots.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def delete_time_slot(request, pk):
     if request.user.is_authenticated:
         TimeSlot.objects.get(id=pk).delete()
         return redirect('admin_time_slots')
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 # Timetable
@@ -220,53 +261,81 @@ def index_timetable(request):
                 "timetables": None
             }
             return render(request, "admin_panel/timetables/index_timetables.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def create_timetable(request):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == "POST":
-            title = request.POST["title"]
-            description = request.POST["description"]
+            timetable_type_id = request.POST["timetable_type"]
+            timetable_type = TimetableType.objects.get(id=timetable_type_id)
+            class_fk = request.POST.getlist("class_ids")
+            exam_id = request.POST["exam"]
+            exam = Exam.objects.get(id=exam_id)
+            subject = request.POST.getlist("subject")
             # is_active = request.POST.get("is_active", False)
             timetable = Timetable(
-                title=title,
+                timetable_type=timetable_type,
+                exam=exam,
                 # is_active=is_active,
-                description=description
             )
             timetable.save()
-            return redirect("admin_timetables_types")
-        return render(request, "admin_panel/timetables/edit_timetables.html")
-    else:
-        return redirect('login_admin_user')
+            timetable.class_fk.set(class_fk)
+            timetable.subject.set(subject)
+            return redirect("admin_timetables")
+
+        timetable_types = TimetableType.objects.all()
+        classes = Class.objects.all()
+        subjects = Subject.objects.all()
+        exams = Exam.objects.all()
+
+        context = {
+            "timetable_types": timetable_types,
+            "classes": classes,
+            "subjects": subjects,
+            "exams": exams
+        }
+        return render(request, "admin_panel/timetables/edit_timetables.html", context)
+    return redirect('login_admin_user')
 
 
 def edit_timetable(request, pk):
     if request.user.is_authenticated and request.user.is_superuser:
         if request.method == "POST":
-            title = request.POST["title"]
-            description = request.POST["description"]
-            # is_active = request.POST.get("is_active", False)
+            timetable_type_id = request.POST["timetable_type"]
+            timetable_type = TimetableType.objects.get(id=timetable_type_id)
+            class_fk = request.POST.getlist("class_ids")
+            exam_id = request.POST["exam"]
+            exam = Exam.objects.get(id=exam_id)
+            subject = request.POST.getlist("subject")
             timetable = Timetable.objects.get(id=pk)
-            timetable.title = title
-            timetable.description = description
+            timetable.timetable_type = timetable_type
+            timetable.exam = exam
             # timetable.is_active = is_active
             timetable.save()
-            return redirect("admin_timetables_types")
+            timetable.class_fk.set(class_fk)
+            timetable.subject.set(subject)
+            return redirect("admin_timetables")
 
         timetable = Timetable.objects.get(id=pk)
+        timetable_types = TimetableType.objects.all()
+        classes = Class.objects.all()
+        subjects = Subject.objects.all()
+        exams = Exam.objects.all()
+
         context = {
+            "timetable_types": timetable_types,
+            "classes": classes,
+            "subjects": subjects,
+            "exams": exams,
             "timetable": timetable,
         }
         return render(request, "admin_panel/timetables/edit_timetables.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')
 
 
 def delete_timetable(request, pk):
     if request.user.is_authenticated:
         Timetable.objects.get(id=pk).delete()
         return redirect('admin_timetables')
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')

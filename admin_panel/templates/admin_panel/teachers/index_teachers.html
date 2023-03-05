@@ -16,9 +16,9 @@
                     <tr>
                         <th>Edit</th>
                         <th>Name</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Active</th>
-                        <th>Staff</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
@@ -27,10 +27,10 @@
                     <tr>
                         <td><a href="{% url 'teacher_edit' teacher.id %}"><span
                                 class="mdi mdi-pencil-box-outline"></span></a></td>
+                        <td>{{ teacher.first_name }} {{ teacher.middle_name }} {{ teacher.last_name }}</td>
                         <td>{{ teacher.username }}</td>
                         <td>{{ teacher.email }}</td>
                         <td>{{ teacher.is_active }}</td>
-                        <td>{{ teacher.is_staff }}</td>
                         <td><a href="{% url 'teacher_del' teacher.id %}"><span
                                 class="mdi mdi-delete-forever"></span></a></td>
                     </tr>

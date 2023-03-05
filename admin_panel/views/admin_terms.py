@@ -28,7 +28,7 @@ def create_term(request):
             name = request.POST["name"]
             starts_on = request.POST["starts_on"]
             ends_on = request.POST["ends_on"]
-            is_active = request.POST.get("is_active", False)
+            is_active = request.POST.get("is_active", True)
             term = Term(
                 name=name,
                 starts_on=starts_on,
@@ -47,8 +47,7 @@ def edit_term(request, pk):
             name = request.POST["name"]
             starts_on = request.POST["starts_on"]
             ends_on = request.POST["ends_on"]
-            print(f"Starts On: {starts_on} and Ends On: {ends_on}")
-            is_active = request.POST.get("is_active", False)
+            is_active = request.POST.get("is_active", True)
             term = Term.objects.get(id=pk)
             term.name = name
             term.starts_on = starts_on

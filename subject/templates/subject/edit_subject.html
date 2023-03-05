@@ -1,4 +1,4 @@
-{% extends "dashboard/base.html" %}
+{% extends "admin_panel/admin_base.html" %}
 {% load static %}
 {% block content %}
 {# Edits Subject #}
@@ -56,7 +56,7 @@
                     {% endif %}
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <button class="btn btn-dark">Cancel</button>
+                            <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
                         </div>
                         <div>
                             {% if subject.id %}

@@ -30,7 +30,7 @@ def create_role(request):
         if request.method == "POST":
             title = request.POST["title"]
             permission = request.POST.getlist("permission")
-            is_active = request.POST.get("is_active", False)
+            is_active = request.POST.get("is_active", True)
             description = request.POST["description"]
             role = Role(
                 title=title,
@@ -56,13 +56,14 @@ def edit_role(request, pk):
             title = request.POST["title"]
             permission = request.POST.getlist("permission")
             description = request.POST["description"]
-            is_active = request.POST.get("is_active", False)
+            is_active = request.POST.get("is_active", True)
             role = Role.objects.get(id=pk)
             role.title = title
-            role.permission = permission
+            # role.permission = permission
             role.is_active = is_active
             role.description = description
             role.save()
+            role.permission.set(permission)
             return redirect("admin_role")
 
         role = Role.objects.get(id=pk)
