@@ -23,6 +23,10 @@ urlpatterns = [
                   path('', include('dashboard.urls')),
                   path("admin/", include("admin_panel.urls")),
                   path("access/", include("accounts.urls")),
-                  path("subjects/", include("subject.urls")),
+                  path("echelon/", include("echelon.urls")),
+                  path("subject/", include("subject.urls")),
+                  path("users/", include("users.urls")),
+                  path("assessment/", include("assessment.urls")),
+                  path("timetable/", include("timetable.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,4 +1,4 @@
-{% extends "admin_panel/admin_base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
 {# Edits Exam Result #}
@@ -6,11 +6,13 @@
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                {% if result.id is null %}
-                <h4 class="card-title">Add Exam Result</h4>
-                {% else %}
-                <h4 class="card-title">Edit Exam Result</h4>
-                {% endif %}
+                <h4 class="card-title">
+                    {% if result.id %}
+                    Edit
+                    {% else %}
+                    Add
+                    {% endif %}
+                    Exam Result</h4>
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
                     <input name="id" type="hidden" value="{{ result.id }}">
@@ -87,11 +89,13 @@
                             <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
                         </div>
                         <div>
-                            {% if exam.id %}
-                            <button class="btn btn-primary me-2" type="submit">Update</button>
-                            {% else %}
-                            <button class="btn btn-primary me-2" type="submit">Submit</button>
-                            {% endif %}
+                            <button class="btn btn-primary me-2" type="submit">
+                                {% if exam.id %}
+                                Update
+                                {% else %}
+                                Submit
+                                {% endif %}
+                            </button>
                         </div>
                     </div>
                 </form>
