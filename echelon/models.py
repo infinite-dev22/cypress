@@ -27,7 +27,6 @@ class Class(models.Model):
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
     slug = models.SlugField(max_length=150)
     is_active = models.BooleanField(default=True)
-    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -44,7 +43,6 @@ class Room(models.Model):
     title = models.CharField(max_length=150, unique=True, null=False, blank=False)
     slug = models.SlugField(max_length=150)
     is_active = models.BooleanField(default=True)
-    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title

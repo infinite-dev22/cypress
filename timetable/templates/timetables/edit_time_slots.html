@@ -1,4 +1,4 @@
-{% extends "admin_panel/admin_base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
 {# Edits Subject #}
@@ -6,11 +6,13 @@
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                {% if time_slot.id is null %}
-                <h4 class="card-title">Add Time Slot</h4>
-                {% else %}
-                <h4 class="card-title">Edit Time Slot</h4>
-                {% endif %}
+                <h4 class="card-title">
+                    {% if time_slot.id %}
+                    Edit
+                    {% else %}
+                    Add
+                    {% endif %}
+                    Time Slot</h4>
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
                     <input name="id" type="hidden" value="{{ time_slot.id }}">
@@ -87,11 +89,13 @@
                             <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
                         </div>
                         <div>
-                            {% if subject.id %}
-                            <button class="btn btn-primary me-2" type="submit">Update</button>
-                            {% else %}
-                            <button class="btn btn-primary me-2" type="submit">Submit</button>
-                            {% endif %}
+                            <button class="btn btn-primary me-2" type="submit">
+                                {% if subject.id %}
+                                Update
+                                {% else %}
+                                Submit
+                                {% endif %}
+                            </button>
                         </div>
                     </div>
                 </form>
