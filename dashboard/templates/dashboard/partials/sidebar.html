@@ -68,52 +68,96 @@
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
-        <span class="menu-icon">
-          <i class="mdi mdi-playlist-play"></i>
-        </span>
-                <span class="menu-title">Classes</span>
+            <a aria-controls="ui-echlon" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+               href="#ui-echlon">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-book-open-page-variant "></i>
+                          </span>
+                <span class="menu-title">Class Management</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-echlon">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'terms' %}">Terms</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'levels' %}">Levels</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'classes' %}">Classes</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'rooms' %}">Streams</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'subjects' %}">Subjects</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="{% url 'admin_subject' %}">
-        <span class="menu-icon">
-          <i class="mdi mdi-playlist-play"></i>
-        </span>
-                <span class="menu-title">Subjects</span>
+            <a aria-controls="ui-user" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+               href="#ui-user">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-account"></i>
+                          </span>
+                <span class="menu-title">User Management</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-user">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'users' %}">Users</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'teachers' %}">Teachers</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'students' %}">
         <span class="menu-icon">
-          <i class="mdi mdi-playlist-play"></i>
+          <i class="mdi mdi-account-multiple"></i>
         </span>
                 <span class="menu-title">Students</span>
             </a>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
-        <span class="menu-icon">
-          <i class="mdi mdi-playlist-play"></i>
-        </span>
-                <span class="menu-title">Assessments</span>
+            <a aria-controls="ui-examining" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+               href="#ui-examining">
+                          <span class="menu-icon">
+                            <i class="mdi mdi-test-tube"></i>
+                          </span>
+                <span class="menu-title">Exams & Tests</span>
+                <i class="menu-arrow"></i>
             </a>
+            <div class="collapse" id="ui-examining">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'exam_types' %}">Exam
+                        Types</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'exams' %}">Exams</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'results' %}">Exam
+                        Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'scores' %}">Scores</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
-        <span class="menu-icon">
-          <i class="mdi mdi-table-large"></i>
-        </span>
-                <span class="menu-title">Time Tables</span>
+            <a aria-controls="ui-timetables" aria-expanded="false" class="nav-link" data-bs-toggle="collapse"
+               href="#ui-timetables">
+              <span class="menu-icon">
+                <i class="mdi mdi-table-large"></i>
+              </span>
+                <span class="menu-title">Timetables</span>
+                <i class="menu-arrow"></i>
             </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
-        <span class="menu-icon">
-          <i class="mdi mdi-chart-bar"></i>
-        </span>
-                <span class="menu-title">Reports</span>
-            </a>
+            <div class="collapse" id="ui-timetables">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'timetable_types' %}">TimeTable
+                        Types</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'timetables' %}">Time Tables</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'time_slots' %}">Time Slots</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'timetable_records' %}">TimeTable
+                        Records</a></li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item menu-items">
             <a class="nav-link" href="#">
@@ -121,14 +165,6 @@
           <i class="mdi mdi-contacts"></i>
         </span>
                 <span class="menu-title">Chat</span>
-            </a>
-        </li>
-        <li class="nav-item menu-items">
-            <a class="nav-link" href="{% url 'users' %}">
-        <span class="menu-icon">
-          <i class="mdi mdi-playlist-play"></i>
-        </span>
-                <span class="menu-title">Users</span>
             </a>
         </li>
     </ul>
