@@ -1,0 +1,147 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3 d-flex align-items-center">
+                    <h4>Chats</h4>
+                </div>
+                <div class="col-9 d-flex justify-content-between align-items-center">
+                    <h6>{{ sender.username }}</h6>
+                    <div class="d-none d-lg-block">
+                        <a aria-expanded="false" class="nav-link btn btn-success create-new-button"
+                           data-bs-toggle="dropdown" href="#" id="createbuttonDropdown">+ Add Conversations</a>
+                        <div aria-labelledby="createbuttonDropdown"
+                             class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list overflow-auto">
+                            <h6 class="p-3 mb-0">Contacts</h6>
+                            <div class="dropdown-divider"></div>
+                            {% for user in users %}
+                            {% if user.id != request.user.id %}
+                            <a class="dropdown-item preview-item px-1" href="{% url 'chat_details' user.id %}">
+                                <div class="d-flex align-items-center">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-dark rounded-circle">
+                                            <i class="mdi mdi-file-outline text-primary"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <p class="preview-subject ellipsis">{{ user.username }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="table-responsive">
+                {% if chats is not None %}
+                <div class="row">
+                    <div class="col-3">
+                        {% for chat in chats %}
+                        {% if chat.msg_sender.id != request.user.id %}
+                        <a class="dropdown-item preview-item px-1" href="{% url 'chat_details' chat.msg_sender.id %}">
+                            <div>
+                                <p>{{ chat.msg_sender.username }}</p>
+                            </div>
+                        </a>
+                        {% elif chat.msg_receiver.id != request.user.id %}
+                        <a class="dropdown-item preview-item px-1" href="{% url 'chat_details' chat.msg_receiver.id %}">
+                            <div>
+                                <p>{{ chat.msg_receiver.username }}</p>
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-9">
+                        <div class="p-2" style="background-color: #242d45; flex-grow: 1;">
+                            {% for chat in chat %}
+                            {% if chat.msg_receiver == request.user and chat.msg_sender == sender %}
+                            <div class="d-flex flex-row my-1">
+                                <div class="p-2 border border-danger"
+                                     style="background-color: #0f1a38; width: 40%; border-radius: 25px;">
+                                    {{ chat.body }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if chat.msg_sender == request.user and chat.msg_receiver == sender %}
+                            <div class="d-flex flex-row-reverse my-1">
+                                <div class="p-2 border border-primary"
+                                     style="background-color: #0f1a38; width: 40%; border-radius: 25px;">
+                                    {{ chat.body }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <form action="" class="forms-sample" method="POST">
+                            {% csrf_token %}
+                            <input name="receiver" type="hidden" value="{{ sender.id }}">
+                            <div class="row py-2 d-flex justify-content-between align-items-center">
+                                <div class="col-9">
+                                    <input class="form-control " id="inputMessage1"
+                                           name="message" placeholder="Message..."
+                                           required style="background-color: #0f1a38; width: 100%; border-radius: 25px;"
+                                           type="text">
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn btn-secondary m-2 rounded-circle" type="submit">
+                                        <span class="mdi mdi-send align-self-center"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-3">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="align-self-center">
+                                <p>Not chats here</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            <div style="background-color: #242d45; flex-grow: 1;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="align-self-center">
+                                        <p>Start chat</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="" class="forms-sample" method="POST">
+                                {% csrf_token %}
+                                <input name="receiver" type="hidden" value="{{ sender.id }}">
+                                <div class="row py-2 d-flex justify-content-between align-items-center">
+                                    <div class="col-9">
+                                        <input class="form-control " id="inputMessage3" name="message"
+                                               placeholder="Message..."
+                                               required
+                                               style="background-color: #0f1a38; width: 100%; border-radius: 25px;"
+                                               type="text">
+                                    </div>
+                                    <div class="col-3">
+                                        <button class="btn btn-secondary m-2 rounded-circle" type="submit">
+                                            <span class="mdi mdi-send align-self-center"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
