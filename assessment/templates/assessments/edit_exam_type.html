@@ -1,4 +1,4 @@
-{% extends "admin_panel/admin_base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
 {# Edits Exam Type #}
@@ -6,20 +6,16 @@
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Add Exam Type</h4>
+                <h4 class="card-title">
+                    {% if exam_type.id %}
+                    Edit
+                    {% else %}
+                    Add
+                    {% endif %}
+                    Exam Type</h4>
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
                     <input name="id" type="hidden" value="{{ exam_type.id }}">
-                    <div class="form-group">
-                        <label for="organisationSelect">Organisation</label>
-                        <select class="form-control form-control-lg" id="organisationSelect"
-                                name="organisation">
-                            <option value="">--Select Organisation--</option>
-                            {% for org in orgs %}
-                            <option value="{{ org.id }}">{{ org }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="inputTitle">Name</label>
                         <input class="form-control" id="inputTitle" name="title" placeholder="Exam type name..."
@@ -45,11 +41,13 @@
                             <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
                         </div>
                         <div>
-                            {% if exam_type.id %}
-                            <button class="btn btn-primary me-2" type="submit">Update</button>
-                            {% else %}
-                            <button class="btn btn-primary me-2" type="submit">Submit</button>
-                            {% endif %}
+                            <button class="btn btn-primary me-2" type="submit">
+                                {% if exam_type.id %}
+                                Update
+                                {% else %}
+                                Submit
+                                {% endif %}
+                            </button>
                         </div>
                     </div>
                 </form>

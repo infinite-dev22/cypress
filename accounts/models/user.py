@@ -27,7 +27,7 @@ class UserType(models.Model):
 
 
 class BaseUser(AbstractBaseUser, PermissionsMixin):
-    organisation = models.ManyToManyField(Organisation, blank=False)
+    organisation = models.ForeignKey(Organisation, blank=False, on_delete=models.DO_NOTHING)
     user_type = models.ForeignKey(UserType, on_delete=models.DO_NOTHING, null=True)
     first_name = models.CharField(max_length=150, unique=False, null=False, blank=False)
     middle_name = models.CharField(max_length=150, unique=False, null=True, blank=True)

@@ -14,5 +14,4 @@ def dashboard_admin(request):
             "new_chats": unread.count()
         }
         return render(request, "admin_panel/dashboard.html", context)
-    else:
-        return redirect('login_admin_user')
+    return redirect('login_admin_user')

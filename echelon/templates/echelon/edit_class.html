@@ -1,16 +1,17 @@
-{% extends "admin_panel/admin_base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
-{# Edits Class #}
 <div class="row d-flex justify-content-center">
     <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                {% if classes.id is null %}
-                <h4 class="card-title">Add Class</h4>
-                {% else %}
-                <h4 class="card-title">Edit Class</h4>
-                {% endif %}
+                <h4 class="card-title">
+                    {% if classes.id %}
+                    Edit
+                    {% else %}
+                    Add
+                    {% endif %}
+                    Class</h4>
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
                     <input name="id" type="hidden" value="{{ classes.id }}">
@@ -22,15 +23,16 @@
                     <div class="form-group">
                         <label for="levelSelect">Level</label>
                         <select class="form-control form-control-lg" id="levelSelect" name="level">
+                            <option>-- Select Level --</option>
+                            {% if classes.id %}
+                            <option selected value="{{ classes.level.id }}">{{ classes.level }}</option>
+                            {% endif %}
                             {% for level in levels %}
+                            {% if level.id != classes.level.id %}
                             <option value="{{ level.id }}">{{ level }}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputDescription">Description</label>
-                        <textarea class="form-control" id="inputDescription" name="description"
-                                  placeholder="Description...">{{ classes.description }}</textarea>
                     </div>
                     {% if class.id %}
                     <div class="form-group">
@@ -46,11 +48,13 @@
                             <button class="btn btn-dark" onclick="window.history.back()">Cancel</button>
                         </div>
                         <div>
-                            {% if classes.id %}
-                            <button class="btn btn-primary me-2" type="submit">Update</button>
-                            {% else %}
-                            <button class="btn btn-primary me-2" type="submit">Submit</button>
-                            {% endif %}
+                            <button class="btn btn-primary me-2" type="submit">
+                                {% if classes.id %}
+                                Update
+                                {% else %}
+                                Submit
+                                {% endif %}
+                            </button>
                         </div>
                     </div>
                 </form>

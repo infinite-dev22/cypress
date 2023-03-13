@@ -52,6 +52,7 @@ CUSTOM_APPS = [
     'grade',
     'subject',
     'timetable',
+    'users',
 ]
 
 THIRD_PARTY_APPS = [

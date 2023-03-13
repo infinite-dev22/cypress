@@ -1,4 +1,4 @@
-{% extends "admin_panel/admin_base.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
 <div class="row d-flex justify-content-center">
@@ -10,8 +10,8 @@
                     Edit
                     {% else %}
                     Add
-                    {% endif %} Timetable Record
-                </h4>
+                    {% endif %}
+                    Timetable Record</h4>
                 <form action="" class="forms-sample" method="POST">
                     {% csrf_token %}
                     <input name="id" type="hidden" value="{{ timetable_record.id }}">
