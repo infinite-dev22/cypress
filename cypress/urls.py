@@ -28,5 +28,6 @@ urlpatterns = [
                   path("users/", include("users.urls")),
                   path("assessment/", include("assessment.urls")),
                   path("timetable/", include("timetable.urls")),
+                  path("chat/", include("chat.urls")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
     # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
